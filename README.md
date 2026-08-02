@@ -7,7 +7,7 @@ Publish HTML pages to `kelso.dotdoing.com/p/<slug>` with random unique links. Bu
 ```bash
 mkdir hermes-kelso && cd hermes-kelso
 mkdir src
-npm install --save-dev wrangler
+pnpm install --save-dev wrangler
 # add package.json, wrangler.toml, src/index.js
 ```
 
