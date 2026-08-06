@@ -1,3 +1,21 @@
+// Requires in wrangler.toml:
+// name = "hermes-kelso"
+// main = "src/index.js"
+// compatibility_date = "2025-01-01"
+
+// [cache]
+// enabled = true
+
+// [[kv_namespaces]]
+// binding = "PAGES"
+// id = "your-namespace-id"
+
+// [[routes]]
+// pattern = "kelso.dotdoing.com/*"
+// zone_name = "dotdoing.com"
+
+
+
 function randomSlug(len = 9) {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
   let s = "";
@@ -10,15 +28,25 @@ function auth(request, env) {
   return request.headers.get("Authorization") === `Bearer ${env.API_TOKEN}`;
 }
 
+// Edge cache: 1 hour (purged on update, so TTL is just a safety net)
+// Browser cache: 60 seconds (keeps navigations fast without long staleness)
+const PAGE_HEADERS = {
+  "content-type": "text/html;charset=UTF-8",
+  "Cache-Control": "public, max-age=60, s-maxage=3600",
+};
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const { pathname } = url;
 
     // Serve robots.txt
     if (request.method === "GET" && pathname === "/robots.txt") {
       return new Response("User-agent: *\nDisallow: /", {
-        headers: { "content-type": "text/plain; charset=UTF-8" },
+        headers: {
+          "content-type": "text/plain; charset=UTF-8",
+          "Cache-Control": "public, max-age=86400",
+        },
       });
     }
 
@@ -27,7 +55,7 @@ export default {
       const html = await env.PAGES.get("index");
       if (!html) return new Response("Not found", { status: 404 });
       return new Response(html, {
-        headers: { "content-type": "text/html;charset=UTF-8" },
+        headers: { ...PAGE_HEADERS, "Cache-Tag": "page-index" },
       });
     }
 
@@ -37,7 +65,7 @@ export default {
       const html = await env.PAGES.get(slug);
       if (!html) return new Response("Not found", { status: 404 });
       return new Response(html, {
-        headers: { "content-type": "text/html;charset=UTF-8" },
+        headers: { ...PAGE_HEADERS, "Cache-Tag": `page-${slug}` },
       });
     }
 
@@ -62,6 +90,8 @@ export default {
       const exists = await env.PAGES.get(slug);
       if (!exists) return new Response("Not found", { status: 404 });
       await env.PAGES.put(slug, await request.text());
+      // Purge edge cache for this page (and the homepage if slug is "index")
+      ctx.waitUntil(ctx.cache.purge({ tags: [`page-${slug}`] }));
       return Response.json({
         ok: true,
         url: `https://kelso.dotdoing.com/p/${slug}`,
@@ -74,6 +104,7 @@ export default {
         return new Response("Unauthorized", { status: 401 });
       const slug = pathname.slice("/api/p/".length);
       await env.PAGES.delete(slug);
+      ctx.waitUntil(ctx.cache.purge({ tags: [`page-${slug}`] }));
       return Response.json({ ok: true });
     }
 

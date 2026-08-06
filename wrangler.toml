@@ -2,6 +2,9 @@ name = "hermes-kelso"
 main = "src/index.js"
 compatibility_date = "2025-01-01"
 
+[cache]
+enabled = true
+
 [[kv_namespaces]]
 binding = "PAGES"
 id = "c1289530876b4812aeb295ce7fb52d8b"
