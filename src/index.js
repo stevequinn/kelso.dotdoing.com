@@ -22,6 +22,15 @@ export default {
       });
     }
 
+    // Homepage: GET / → same as /p/index
+    if (request.method === "GET" && (pathname === "/" || pathname === "")) {
+      const html = await env.PAGES.get("index");
+      if (!html) return new Response("Not found", { status: 404 });
+      return new Response(html, {
+        headers: { "content-type": "text/html;charset=UTF-8" },
+      });
+    }
+
     // Serve a page: GET /p/:slug
     if (request.method === "GET" && pathname.startsWith("/p/")) {
       const slug = pathname.slice("/p/".length);
