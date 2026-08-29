@@ -9,6 +9,24 @@ enabled = true
 binding = "PAGES"
 id = "c1289530876b4812aeb295ce7fb52d8b"
 
+[[kv_namespaces]]
+binding = "SUBS"
+id = "REPLACE_WITH_SUBS_KV_ID"   # from: wrangler kv namespace create SUBS
+
 [[routes]]
 pattern = "kelso.dotdoing.com/*"
 zone_name = "dotdoing.com"
+
+[vars]
+# Public, non-secret values committed to the repo:
+TURNSTILE_SITEKEY = "REPLACE_WITH_TURNSTILE_SITEKEY"
+FROM_EMAIL = "kelso@dotdoing.com"
+
+# --- Secrets (NOT in this file — injected at deploy via `wrangler secret put`) ---
+# Mirrors how the existing API_TOKEN is handled: secrets live only in encrypted
+# Cloudflare storage, never in the committed file. Run these before `wrangler deploy`:
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put TURNSTILE_SECRET
+#   npx wrangler secret put SUBS_TOKEN
+# SUBS_TOKEN is used both for /admin/subscribers auth AND as the HMAC key for
+# signed unsubscribe links.
