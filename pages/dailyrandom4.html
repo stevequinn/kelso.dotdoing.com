@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>The Daily Random — A Catalogue of Small Wonders</title>
   <meta name="description" content="An archive of daily explorations into the strange, beautiful, and overlooked corners of the world. A new discovery every morning.">
   <meta property="og:title" content="The Daily Random — A Catalogue of Small Wonders">
@@ -21,8 +21,6 @@
     /* fallback metric alignment to prevent CLS */
     @font-face{font-family:"Archivo Fallback"; src:local("Arial Black"), local("Impact"); ascent-override:72%; descent-override:18%; line-gap-override:0%; size-adjust:112%}
     @font-face{font-family:"Public Fallback"; src:local("Arial"), local("Helvetica"); ascent-override:92%; descent-override:22%; size-adjust:104%}
-  </style>
-  <style>
     /* THESIS: Late-night transmission log from a control room — the daily wonder as a broadcast signal, not a specimen. Brutal, high-contrast and off-kilter against the previous ledger's archival warmth. Rejects serif elegance for block grotesk + mono system utility.
        OWN-WORLD: Concrete paper #EDEBE1 against ink #0A0A0A, acid signal yellow #FFEB2A as committed field (35% surface), steel #8B8680 + cyan tap #00E6C8 as functional accents only; Archivo Black for brutal wordmark, Public Sans 700/800 for headings, JetBrains Mono for system data; 3px black rules, 12px deepshadow offsets, perforated punch-card details, no soft paper shadows, no warm tints.
        STORY: Visitor tunes into a daily signal — one strange transmission at 04:00 — trusts Kelso the operator, and either catches today's broadcast or scrolls the log.
@@ -52,7 +50,11 @@
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     html{font-size:16px}
-    body{background:var(--paper); color:var(--ink); font-family:"Public Sans","Public Fallback", system-ui, sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; font-variant-ligatures:common-ligatures; font-feature-settings:"ss01" 1}
+    body{
+      background:var(--paper); color:var(--ink); font-family:"Public Sans","Public Fallback", system-ui, sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; font-variant-ligatures:common-ligatures; font-feature-settings:"ss01" 1;
+      padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);
+    }
+    @supports(padding:max(0px)){ body{padding-left:max(0px, env(safe-area-inset-left)); padding-right:max(0px, env(safe-area-inset-right))} }
     /* tabular numbers for log counts */
     .signal-left b, .plate-num, .entry-row .num, #footer-no{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
     a{color:inherit; text-decoration:none}
@@ -68,7 +70,8 @@
     .skip{position:absolute; left:-9999px; top:0; z-index:99; padding:10px 18px; background:var(--acid); color:var(--ink); font:800 12px "Public Sans",sans-serif; letter-spacing:0.06em; text-transform:uppercase}
     .skip:focus{left:12px; top:12px}
 
-    .wrap{max-width:1280px; margin:0 auto; padding:0 var(--s-6); position:relative}
+     .wrap{max-width:1280px; margin:0 auto; padding:0 var(--s-6); position:relative}
+     @media(max-width:560px){ .wrap{padding-left:max(14px, env(safe-area-inset-left)); padding-right:max(14px, env(safe-area-inset-right))} }
     .hidden{display:none !important}
 
     /* signal bar — thick black with moving yellow hazard */
@@ -116,13 +119,13 @@
     .kelso-badge{
       width:86px; height:86px; flex-shrink:0; background:var(--acid); border:3px solid var(--ink);
       padding:3px; transform:rotate(-3deg); box-shadow:4px 4px 0 var(--ink); position:relative; overflow:hidden;
-      transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+      transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
       cursor:default;
     }
-    .kelso-badge:hover{transform:rotate(-1deg) scale(1.03); box-shadow:6px 6px 0 var(--ink)}
+    .kelso-badge:hover{transform:rotate(-1deg) scale(1.02); box-shadow:6px 6px 0 var(--ink)}
     .kelso-badge:active{transform:rotate(1deg) scale(0.98)}
-    .kelso-badge img{width:100%; height:100%; object-fit:cover; display:block; border:2px solid var(--ink); object-position:center 22%; transition:transform .35s cubic-bezier(.22,1,.36,1)}
-    .kelso-badge:hover img{transform:scale(1.08) rotate(1deg)}
+    .kelso-badge img{width:100%; height:100%; object-fit:cover; display:block; border:2px solid var(--ink); object-position:center 22%; transition:transform .4s cubic-bezier(.22,1,.36,1)}
+    .kelso-badge:hover img{transform:scale(1.06) rotate(0.6deg)}
     .kelso-badge::after{
       content:"WOOF"; position:absolute; bottom:-1px; right:-1px; background:var(--ink); color:var(--acid);
       font:800 7px "JetBrains Mono", monospace; letter-spacing:0.12em; padding:2px 4px; line-height:1;
@@ -204,9 +207,9 @@
       position:absolute; left:14px; top:14px; z-index:2; display:flex; align-items:center; gap:10px;
       background:var(--paper); border:2px solid var(--ink); padding:7px 10px; box-shadow:4px 4px 0 var(--ink);
       font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800;
-      transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+      transition:transform .22s cubic-bezier(.22,1,.36,1);
     }
-    .broadcast:hover .plate-badge{transform:rotate(-0.8deg) translateY(-1px)}
+    .broadcast:hover .plate-badge{transform:rotate(-0.6deg) translateY(-1px)}
     .plate-badge i{width:10px; height:10px; background:var(--acid); border:1.5px solid var(--ink); display:inline-block}
     .plate-num{
       position:absolute; right:-6px; bottom:18px; z-index:2; font-family:"Archivo Black", sans-serif; font-size:124px; line-height:1; letter-spacing:-0.06em; color:var(--acid);
@@ -334,7 +337,7 @@
     /* yellow tape corner on image — peels on hover */
     .entry-row .thumb::after{
       content:""; position:absolute; left:8px; top:8px; width:28px; height:10px; background:var(--acid); border:1px solid var(--ink); opacity:0.95; transform:rotate(-3deg); box-shadow:1px 1px 0 var(--ink);
-      transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+      transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
     }
     .entry-row:hover .thumb::after{transform:rotate(-1deg) translateY(-1px); box-shadow:1.5px 2px 0 var(--ink)}
     /* tiny paw stamp appears on hover — product-specific discovery */
@@ -369,6 +372,39 @@
     @keyframes reveal{to{opacity:1; transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){.reveal{animation:none; opacity:1; transform:none} .pulse{animation:none}}
 
+    /* touch adaptation — hover only where hover exists, active for touch */
+    @media (hover: hover){
+      .kelso-badge:hover{transform:rotate(-1deg) scale(1.02); box-shadow:6px 6px 0 var(--ink)}
+      .kelso-badge:hover img{transform:scale(1.06) rotate(0.6deg)}
+      .kelso-badge:hover::after{transform:translateY(-1px) rotate(1deg)}
+      .broadcast:hover .plate img{filter:grayscale(0) contrast(1) brightness(1); transform:scale(1.015)}
+      .broadcast:hover .plate::after{opacity:0.32}
+      .broadcast:hover .plate-badge{transform:rotate(-0.6deg) translateY(-1px)}
+      .broadcast:hover .read-arrow{transform:translateX(3px); background:var(--ink); color:var(--acid)}
+      .entry-row:hover{background:#fff; transform:translateX(2px)}
+      .entry-row:hover .thumb img{transform:scale(1.06); filter:saturate(1.15) contrast(1.02)}
+      .entry-row:hover .thumb::after{transform:rotate(-1deg) translateY(-1px); box-shadow:1.5px 2px 0 var(--ink)}
+      .entry-row:hover .thumb::before{opacity:1; transform:rotate(-4deg) scale(1)}
+      .entry-row:hover .main h3{text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:3px; text-decoration-color:var(--acid)}
+      .entry-row:hover .go{background:var(--acid); color:var(--ink)}
+      .side-cta:hover{background:var(--paper); color:var(--ink)}
+      .dispatch-form button:hover{background:var(--paper)}
+      .mini-form button:hover{background:var(--ink); color:var(--acid)}
+    }
+    @media (hover: none){
+      /* touch: no hover shift, use active press feedback */
+      .kelso-badge:active{transform:rotate(-1deg) scale(0.98)}
+      .entry-row:active{background:#fff}
+      .broadcast:active .plate::after{opacity:0.42}
+      .side-cta:active{background:var(--paper); color:var(--ink)}
+    }
+    @media (pointer: coarse){
+      .signal-left, .signal-right, .side-cta, .dispatch-form button, .mini-form button{padding-top:14px; padding-bottom:14px}
+      .entry-row .main h3{font-size:16px}
+      .read-row{padding-top:14px; padding-bottom:2px}
+      .dispatch-form input, .mini-form input{font-size:16px}
+    }
+
     @media(max-width:960px){
       .mast{grid-template-columns:1fr}
       .mast-side{border-left:none; border-top:3px solid var(--ink)}
@@ -400,6 +436,22 @@
       .entry-row .go{display:none}
       .entry-row::before{top:190px}
       .dispatch-left h3{font-size:24px}
+    }
+    @media(max-width:380px){
+      .wrap{padding-left:max(12px, env(safe-area-inset-left)); padding-right:max(12px, env(safe-area-inset-right))}
+      .signal-left{gap:8px; padding:8px 10px; font-size:10px}
+      .kelso-lockup{gap:10px}
+      .kelso-badge{width:58px; height:58px}
+      .wordmark{font-size:44px}
+      .side-date{font-size:28px}
+      .plate{min-height:300px}
+      .entry-row .thumb div, .entry-row .thumb img{min-height:150px; max-height:150px}
+      .entry-row::before{top:160px}
+    }
+    @media (orientation: landscape) and (max-height: 520px){
+      .plate{min-height:340px}
+      .signal-bar::after{width:28%}
+      .ticker{display:none}
     }
   </style>
 </head>
