@@ -50,6 +50,11 @@
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     html{font-size:16px}
+    /* polish: targeted blowout control — keep normal break, never break-word globally */
+    :where(h1,h2,h3,p,blockquote){overflow-wrap:break-word; word-break:normal; hyphens:auto}
+    :where(.tags span, .entry-row .main h3, .signal-copy h2, .wordmark){overflow-wrap:anywhere; word-break:normal}
+    :where(.mast,.broadcast,.statement,.dispatch,.entry-row,.footer-grid,.wrap,.signal-copy,.mast-main){min-width:0}
+    .entry-row > *, .signal-copy, .mast-main, .statement-right, .dispatch-left, .footer-left, .footer-right{min-width:0; overflow-wrap:break-word}
     body{
       background:var(--paper); color:var(--ink); font-family:"Public Sans","Public Fallback", system-ui, sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; font-variant-ligatures:common-ligatures; font-feature-settings:"ss01" 1;
       padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);
@@ -120,7 +125,7 @@
       width:86px; height:86px; flex-shrink:0; background:var(--acid); border:3px solid var(--ink);
       padding:3px; transform:rotate(-3deg); box-shadow:4px 4px 0 var(--ink); position:relative; overflow:hidden;
       transition:transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s;
-      cursor:default;
+      cursor:zoom-in;
     }
     .kelso-badge:hover{transform:rotate(-1deg) scale(1.02); box-shadow:6px 6px 0 var(--ink)}
     .kelso-badge:active{transform:rotate(1deg) scale(0.98)}
@@ -139,8 +144,8 @@
     .kelso-tag{font-family:"JetBrains Mono", monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; color:var(--ink); background:var(--acid); border:1.5px solid var(--ink); padding:3px 5px; display:inline-block; transform:rotate(-1deg); margin-top:4px; box-shadow:2px 2px 0 var(--ink)}
     @media(max-width:560px){ .kelso-badge{width:68px; height:68px} }
     .wordmark{
-      font-family:"Archivo Black","Archivo Fallback", sans-serif; line-height:0.78; letter-spacing:-0.045em; text-transform:uppercase; font-size:clamp(54px, 8.2vw, 96px);
-      margin:0; position:relative; text-wrap:balance;
+      font-family:"Archivo Black","Archivo Fallback", sans-serif; line-height:0.78; letter-spacing:-0.045em; text-transform:uppercase; font-size:clamp(44px, 8.2vw, 96px);
+      margin:0; position:relative; text-wrap:balance; overflow-wrap:break-word; word-break:break-word; hyphens:auto;
     }
     .wordmark .the{
       font-family:"JetBrains Mono", monospace; font-size:0.13em; letter-spacing:0.22em; font-weight:700; display:flex; align-items:center; gap:10px; color:var(--muted); margin-bottom:10px; text-transform:uppercase;
@@ -157,6 +162,7 @@
     }
     .mast-sub{
       margin-top:var(--s-2); font-family:"Public Sans","Public Fallback", sans-serif; font-size:15px; line-height:1.65; font-weight:500; color:var(--ink-2); max-width:58ch; border-left:3px solid var(--acid); padding-left:var(--s-3);
+      overflow-wrap:break-word; hyphens:auto;
     }
     .mast-sub i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; font-size:1.05em}
     .mast-sub b{background:var(--ink); color:var(--acid); padding:1px 5px; font-weight:800; font-size:0.82em; letter-spacing:0.02em}
@@ -232,17 +238,19 @@
       background:var(--acid); border:2px solid var(--ink); padding:6px 8px; width:fit-content; box-shadow:3px 3px 0 var(--ink);
     }
     .signal-copy h2{
-      font-family:"Public Sans","Public Fallback", sans-serif; font-size:clamp(28px, 3.1vw, 42px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; text-transform:uppercase; text-wrap:balance;
-      margin:0;
+      font-family:"Public Sans","Public Fallback", sans-serif; font-size:clamp(24px, 3.1vw, 42px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; text-transform:uppercase; text-wrap:balance;
+      margin:0; overflow-wrap:anywhere; hyphens:auto; min-width:0;
     }
     .signal-copy h2 em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; color:var(--ink); background:var(--acid); padding:0 6px; box-decoration-break:clone}
     .signal-copy > p{
       font-family:"Public Sans","Public Fallback", sans-serif; font-size:16px; line-height:1.65; font-weight:500; color:var(--ink-2); margin:0; max-width:62ch;
+      overflow-wrap:break-word; hyphens:auto; min-width:0;
     }
-    .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0}
+    .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; min-width:0}
     .tags span{
       font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
       padding:5px 7px; border:1.5px solid var(--ink); background:var(--paper); color:var(--ink); box-shadow:2px 2px 0 var(--ink);
+      max-width:100%; overflow-wrap:anywhere; min-width:0;
     }
     .read-row{
       margin-top:auto; padding-top:var(--s-4); border-top:3px solid var(--ink); display:flex; align-items:center; gap:var(--s-4); margin-left:calc(var(--s-6) * -1); margin-right:calc(var(--s-6) * -1); padding-left:var(--s-6); padding-right:var(--s-6); padding-bottom:var(--s-2);
@@ -269,6 +277,7 @@
     }
     .statement-right p{
       font-family:"Public Sans","Public Fallback", sans-serif; font-size:17px; line-height:1.6; font-weight:600; color:var(--ink-2); max-width:65ch;
+      overflow-wrap:break-word; min-width:0;
     }
     .statement-right p i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; background:var(--acid); padding:0 4px}
     .statement-right .by{margin-top:10px; font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; color:var(--muted)}
@@ -287,7 +296,7 @@
     .dispatch-form{padding:var(--s-5) var(--s-6); background:var(--ink); color:var(--paper); display:flex; flex-direction:column; justify-content:center; gap:var(--s-2)}
     .dispatch-form form{display:flex; gap:0; border:2px solid var(--paper); background:var(--ink)}
     .dispatch-form input{flex:1; min-width:0; background:var(--paper); border:none; padding:14px 16px; font:700 14px/1 "JetBrains Mono", monospace; color:var(--ink); outline:none; letter-spacing:-0.01em}
-    .dispatch-form input::placeholder{color:var(--steel)}
+    .dispatch-form input::placeholder{color:var(--muted); opacity:1}
     .dispatch-form button{
       background:var(--acid); color:var(--ink); border:none; border-left:2px solid var(--paper); padding:0 20px; font:800 11px "JetBrains Mono", monospace; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background .18s; white-space:nowrap; min-height:48px;
     }
@@ -310,7 +319,7 @@
     .index-head small{font-family:"JetBrains Mono", monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; font-weight:800; color:var(--ink); background:var(--paper-3); border:2px solid var(--ink); padding:6px 8px; box-shadow:3px 3px 0 var(--ink)}
     .index-list{border-left:3px solid var(--ink); border-right:3px solid var(--ink); background:var(--paper-3)}
     .entry-row{
-      display:grid; grid-template-columns:56px 172px 1fr 52px; gap:0; border-bottom:2px solid var(--ink); background:var(--paper-3); transition:background .14s, transform .14s;
+      display:grid; grid-template-columns:56px 224px 1fr 52px; gap:0; border-bottom:2px solid var(--ink); background:var(--paper-3); transition:background .14s, transform .14s;
       position:relative; overflow:hidden;
     }
     .entry-row::before{
@@ -327,12 +336,12 @@
     .entry-row .main{gap:var(--s-2); padding:var(--s-4) var(--s-4) var(--s-4) var(--s-4); padding-top:22px}
     .entry-row .main .meta{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--muted); display:flex; gap:8px; align-items:center; flex-wrap:wrap}
     .entry-row .main .meta b{color:var(--ink); font-weight:800; background:var(--acid); padding:1px 5px; border:1.5px solid var(--ink)}
-    .entry-row .main h3{font-family:"Public Sans","Public Fallback", sans-serif; font-size:17px; line-height:1.12; letter-spacing:-0.025em; font-weight:800; text-transform:uppercase; text-wrap:balance}
+    .entry-row .main h3{font-family:"Public Sans","Public Fallback", sans-serif; font-size:17px; line-height:1.12; letter-spacing:-0.025em; font-weight:800; text-transform:uppercase; text-wrap:balance; overflow-wrap:anywhere; min-width:0}
     .entry-row:hover .main h3{text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:3px; text-decoration-color:var(--acid)}
-    .entry-row .main p{font-family:"Public Sans","Public Fallback", sans-serif; font-size:13.5px; line-height:1.55; font-weight:500; color:var(--muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px}
-    .entry-row .thumb{padding:0; align-items:stretch; justify-content:stretch; background:var(--ink); border-right:2px solid var(--ink); overflow:hidden; position:relative}
-    .entry-row .thumb div{width:100%; height:100%; min-height:112px; border:none; background:var(--ink); overflow:hidden; box-shadow:none; position:relative; display:block}
-    .entry-row .thumb img{width:100%; height:100%; min-height:112px; object-fit:cover; filter:saturate(0.85) contrast(1.05); transition:transform .45s cubic-bezier(.22,1,.36,1), filter .3s}
+    .entry-row .main p{font-family:"Public Sans","Public Fallback", sans-serif; font-size:13.5px; line-height:1.55; font-weight:500; color:var(--muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px; overflow-wrap:break-word; min-width:0}
+    .entry-row .thumb{padding:0; align-items:stretch; justify-content:stretch; background:var(--paper-3); border-right:2px solid var(--ink); overflow:hidden; position:relative}
+    .entry-row .thumb div{width:100%; height:100%; min-height:148px; border:none; background:var(--paper-3); overflow:hidden; box-shadow:none; position:relative; display:block}
+    .entry-row .thumb img{width:100%; height:100%; min-height:148px; object-fit:cover; filter:saturate(0.88) contrast(1.04); transition:transform .45s cubic-bezier(.22,1,.36,1), filter .3s}
     .entry-row:hover .thumb img{transform:scale(1.06); filter:saturate(1.15) contrast(1.02)}
     /* yellow tape corner on image — peels on hover */
     .entry-row .thumb::after{
@@ -350,8 +359,8 @@
     .entry-row .go svg{width:16px; height:16px; transition:transform .18s}
     .entry-row:hover .go svg{transform:translate(2px,-2px)}
 
-    /* footer — ink */
-    footer{margin-top:28px; border:3px solid var(--ink); background:var(--ink); color:var(--paper); box-shadow:8px 8px 0 var(--ink)}
+    /* footer — ink — generous separation after log, matches mast/broadcast rhythm */
+    footer{margin-top:48px; border:3px solid var(--ink); background:var(--ink); color:var(--paper); box-shadow:8px 8px 0 var(--ink)}
     .footer-grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:0}
     .footer-left{padding:26px 26px; border-right:2px solid rgba(255,255,255,0.12)}
     .footer-kicker{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; color:var(--acid)}
@@ -367,10 +376,11 @@
     .stamp{display:inline-flex; align-items:center; gap:8px; border:2px solid var(--paper); padding:7px 10px; background:var(--acid); color:var(--ink); transform:rotate(-1deg)}
     .stamp span{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; font-weight:800}
 
+    /* polish: one authored entrance — mast arrives, broadcast follows via opacity only */
     .reveal{opacity:0; transform:translateY(8px); animation:reveal .55s cubic-bezier(.22,1,.36,1) forwards}
-    .reveal.d1{animation-delay:.06s} .reveal.d2{animation-delay:.14s} .reveal.d3{animation-delay:.20s}
+    .reveal.d1{animation-delay:.06s}
     @keyframes reveal{to{opacity:1; transform:translateY(0)}}
-    @media(prefers-reduced-motion:reduce){.reveal{animation:none; opacity:1; transform:none} .pulse{animation:none}}
+    @media(prefers-reduced-motion:reduce){.reveal{animation:none; opacity:1; transform:none} .pulse{animation:none} .kelso-badge, .kelso-badge img{animation:none !important}}
 
     /* touch adaptation — hover only where hover exists, active for touch */
     @media (hover: hover){
@@ -418,14 +428,14 @@
       .dispatch-left{border-right:none; border-bottom:3px solid var(--ink)}
       .footer-grid{grid-template-columns:1fr}
       .footer-left{border-right:none; border-bottom:2px solid rgba(255,255,255,0.12)}
-      .entry-row{grid-template-columns:56px 118px 1fr 48px}
-      .entry-row .thumb div, .entry-row .thumb img{min-height:96px}
+      .entry-row{grid-template-columns:56px 164px 1fr 48px}
+      .entry-row .thumb div, .entry-row .thumb img{min-height:112px}
     }
     @media(max-width:560px){
       .wrap{padding:0 14px}
       .signal-left{font-size:10px}
       .signal-right{display:none}
-      .wordmark{font-size:52px}
+      .wordmark{font-size:clamp(38px, 11vw, 52px)}
       .wordmark .random{-webkit-text-stroke:1.8px var(--ink)}
       .signal-copy{padding:20px 18px}
       .entry-row{grid-template-columns:56px 1fr; grid-template-rows:auto auto}
@@ -448,6 +458,107 @@
       .entry-row .thumb div, .entry-row .thumb img{min-height:150px; max-height:150px}
       .entry-row::before{top:160px}
     }
+    /* polish: load-more inherits system — not an inline exception */
+    .load-more{width:100%; padding:14px; background:var(--paper); border:2px solid var(--ink); border-top:none; font:800 11px "JetBrains Mono",monospace; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--ink); transition:background .14s, color .14s; text-align:center}
+    .load-more:hover{background:var(--ink); color:var(--acid)}
+    .load-more:focus-visible{outline:2px solid var(--cyan); outline-offset:-2px}
+    .load-more:disabled{opacity:.5; cursor:not-allowed}
+    /* harden: image fallbacks */
+    .plate.is-broken{background:var(--acid); display:flex; align-items:center; justify-content:center; min-height:560px; border-top:none}
+    .plate.is-broken img{display:none !important}
+    .plate.is-broken::after{opacity:0 !important}
+    .plate-fallback{display:none; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:32px; text-align:center; color:var(--ink)}
+    .plate.is-broken .plate-fallback{display:flex}
+    .plate-fallback b{font:800 12px "JetBrains Mono",monospace; letter-spacing:0.12em; text-transform:uppercase; background:var(--ink); color:var(--acid); padding:4px 6px}
+    .plate-fallback span{font:700 11px "JetBrains Mono",monospace; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); opacity:0.7; max-width:28ch}
+    .thumb.is-broken{background:var(--acid) !important}
+    .thumb.is-broken img{opacity:0}
+    .thumb-fallback{position:absolute; inset:0; display:none; place-items:center; text-align:center; padding:10px; background:var(--acid); color:var(--ink)}
+    .thumb.is-broken .thumb-fallback{display:grid}
+    .thumb-fallback span{font:800 9px "JetBrains Mono",monospace; letter-spacing:0.08em; text-transform:uppercase; line-height:1.3}
+    /* polish: prevent iOS zoom — 16px floor is the thy pographic rule */
+    @supports (-webkit-touch-callout: none){
+      .dispatch-form input, .mini-form input{font-size:16px}
+    }
+
+    /* ——— KELSO ENLARGER ——— */
+    .kelso-trigger{cursor:zoom-in; position:relative}
+    .kelso-trigger:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+    /* hint badge on hover */
+    .kelso-trigger::before{
+      content:"⤢ ENLARGE"; position:absolute; right:6px; bottom:6px; z-index:2;
+      background:var(--ink); color:var(--acid); border:1.5px solid var(--ink);
+      font:700 7px "JetBrains Mono",monospace; letter-spacing:0.12em; padding:3px 5px; line-height:1;
+      opacity:0; transform:translateY(4px) rotate(1deg); transition:opacity .18s, transform .18s; pointer-events:none; white-space:nowrap;
+    }
+    .kelso-trigger:hover::before,.kelso-trigger:focus-visible::before{opacity:1; transform:translateY(0) rotate(-1deg)}
+    .kelso-badge.kelso-trigger::before{right:4px; bottom:18px; font-size:6.5px}
+    /* signal dot enlarge hint — smaller */
+    .signal-kelso.kelso-trigger::before{font-size:6px; right:2px; bottom:2px; padding:2px 3px}
+    button.kelso-trigger:not(.stamp){appearance:none; border:none; padding:0; background:none; display:inline-flex}
+    button.kelso-badge.kelso-trigger{width:86px; height:86px; background:var(--acid); border:3px solid var(--ink); padding:3px; flex-shrink:0; display:block; cursor:zoom-in}
+    button.stamp.kelso-trigger{appearance:none; cursor:zoom-in}
+    @media(max-width:560px){ button.kelso-badge.kelso-trigger{width:68px; height:68px} }
+    @media(max-width:380px){ button.kelso-badge.kelso-trigger{width:58px; height:58px} }
+    /* viewer */
+    #kelso-viewer[hidden]{display:none !important}
+    #kelso-viewer{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:20px max(20px, env(safe-area-inset-right)) 20px max(20px, env(safe-area-inset-left));}
+    #kelso-viewer .kv-backdrop{position:absolute; inset:0; background:rgba(10,10,10,0.84); backdrop-filter:blur(10px) saturate(1.1); -webkit-backdrop-filter:blur(10px) saturate(1.1)}
+    #kelso-viewer .kv-backdrop::after{
+      content:""; position:absolute; inset:0; opacity:0.06;
+      background: repeating-linear-gradient(-45deg, var(--acid) 0 14px, transparent 14px 28px);
+      pointer-events:none;
+    }
+    .kv-frame{
+      position:relative; z-index:1; width:min(560px, calc(100vw - 28px)); background:var(--paper-3); border:3px solid var(--ink); box-shadow:12px 12px 0 var(--ink);
+      transform:rotate(-0.5deg); animation:kvIn .42s cubic-bezier(.22,1,.36,1);
+      max-height:min(88vh, 820px); display:flex; flex-direction:column; overflow:hidden;
+    }
+    @keyframes kvIn{ from{opacity:0; transform:rotate(-0.5deg) translateY(14px) scale(0.98)} to{opacity:1; transform:rotate(-0.5deg) translateY(0) scale(1)} }
+    @media(prefers-reduced-motion:reduce){ .kv-frame{animation:none} }
+    .kv-topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--ink); color:var(--paper); padding:10px 12px 10px 14px;
+      font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; line-height:1;
+    }
+    .kv-topbar b{color:var(--acid); font-weight:800}
+    .kv-topbar .kv-dot{width:8px; height:8px; background:var(--acid); border-radius:50%; box-shadow:0 0 0 5px rgba(255,235,42,0.14); display:inline-block; flex-shrink:0}
+    .kv-close{
+      appearance:none; border:2px solid var(--paper); background:var(--acid); color:var(--ink); width:32px; height:32px; display:grid; place-items:center; cursor:pointer; flex-shrink:0;
+      font:800 14px/1 "JetBrains Mono",monospace; transition:background .14s, transform .14s; box-shadow:2px 2px 0 rgba(0,0,0,0.35);
+    }
+    .kv-close:hover{background:var(--paper); transform:rotate(-2deg)}
+    .kv-close:active{transform:scale(0.96)}
+    .kv-close svg{width:14px; height:14px}
+    .kv-media{
+      background:var(--acid); padding:10px; border-top:3px solid var(--ink); border-bottom:3px solid var(--ink); position:relative; overflow:hidden;
+    }
+    .kv-media::before{
+      content:""; position:absolute; inset:10px; border:1.5px dashed rgba(10,10,10,0.16); pointer-events:none; z-index:1;
+    }
+    .kv-media img{
+      width:100%; height:auto; max-height:min(58vh, 520px); object-fit:cover; object-position:center 22%; display:block; border:3px solid var(--ink); background:var(--paper);
+      box-shadow:6px 6px 0 var(--ink);
+    }
+    .kv-caption{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:14px; padding:14px 16px; background:var(--paper-3);
+    }
+    .kv-caption h3{font-family:"Archivo Black",sans-serif; font-size:16px; line-height:1; letter-spacing:-0.02em; text-transform:uppercase; margin:0}
+    .kv-caption h3 i{font-family:"Instrument Serif",serif; font-style:italic; font-weight:400; text-transform:none; background:var(--acid); padding:0 4px}
+    .kv-caption p{margin:6px 0 0 0; font-family:"JetBrains Mono",monospace; font-size:10px; line-height:1.5; letter-spacing:0.04em; text-transform:uppercase; color:var(--muted); max-width:36ch}
+    .kv-meta{
+      flex-shrink:0; text-align:right; display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+    }
+    .kv-tag{font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:0.12em; text-transform:uppercase; font-weight:800; background:var(--ink); color:var(--acid); padding:4px 6px; border:1.5px solid var(--ink)}
+    .kv-hint{font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--muted); display:flex; align-items:center; gap:6px}
+    .kv-hint kbd{font:700 9px "JetBrains Mono",monospace; border:1.5px solid var(--ink); background:var(--paper); padding:2px 4px; box-shadow:1.5px 1.5px 0 var(--ink)}
+    @media(max-width:560px){
+      #kelso-viewer{padding:14px}
+      .kv-frame{width:calc(100vw - 28px); box-shadow:8px 8px 0 var(--ink)}
+      .kv-media{padding:8px}
+      .kv-media img{max-height:52vh}
+      .kv-caption{flex-direction:column; padding:12px 14px}
+      .kv-meta{text-align:left; align-items:flex-start; flex-direction:row; flex-wrap:wrap}
+    }
     @media (orientation: landscape) and (max-height: 520px){
       .plate{min-height:340px}
       .signal-bar::after{width:28%}
@@ -461,14 +572,14 @@
 
   <div class="wrap">
     <div class="signal-bar" role="status" aria-live="polite">
-      <div class="signal-left"><span class="pulse" aria-hidden="true"></span> <img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:26px; height:26px; object-fit:cover; object-position:center 22%; border:1.5px solid var(--acid); flex-shrink:0"> DAILY TRANSMISSION <b>No. <span id="day-count">—</span></b> — NEW AT 04:00 AEST</div>
+      <div class="signal-left"><span class="pulse" aria-hidden="true"></span> <button type="button" class="kelso-trigger signal-kelso" aria-label="View larger photo of Kelso" data-kelso-trigger style="width:26px; height:26px; border:1.5px solid var(--acid); flex-shrink:0; padding:0; overflow:hidden; display:inline-flex"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block"></button> DAILY TRANSMISSION <b>No. <span id="day-count">—</span></b> — NEW AT 04:00 AEST</div>
       <div class="signal-right">2026 · VOL. 1 — SIGNAL LOCKED</div>
     </div>
 
     <header class="mast reveal">
       <div class="mast-main">
         <div class="kelso-lockup">
-          <div class="kelso-badge" aria-hidden="true"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens"></div>
+          <button type="button" class="kelso-badge kelso-trigger" aria-label="View larger photo of Kelso — nose to the lens" data-kelso-trigger><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens"></button>
           <div>
             <h1 class="wordmark" id="wordmark" data-edition="—"><span class="the">The</span><span class="daily">Daily</span><span class="random">Random.</span></h1>
             <span class="kelso-tag">Operated by Kelso 🐾 — very serious journalist</span>
@@ -491,9 +602,10 @@
 
     <main>
       <a href="#" id="featured-link" target="_blank" rel="noopener noreferrer" class="broadcast reveal d1" aria-label="Featured transmission">
-        <div class="plate">
+        <div class="plate" id="plate-wrap">
           <div class="plate-badge"><i></i> ON AIR — EDITION <span id="caption-no">—</span></div>
-          <img id="featured-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" loading="eager" fetchpriority="high" decoding="async">
+          <img id="featured-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.closest('.plate')?.classList.add('is-broken')">
+          <div class="plate-fallback" aria-hidden="true"><b>Signal lost — image unavailable</b><span>Kelso is fetching again. Title and story remain below.</span></div>
           <div class="plate-num" id="plate-num" aria-hidden="true">—</div>
           <div class="plate-caption">
             <span id="featured-caption-left">EDITION <span id="caption-no-2">—</span> — TODAY'S TRANSMISSION</span>
@@ -517,7 +629,7 @@
         </div>
       </a>
 
-      <section class="statement reveal d2" aria-label="About">
+      <section class="statement" aria-label="About">
         <div class="statement-left">
           <div style="display:flex; align-items:center; gap:10px"><span class="dot"></span> <strong>Every dawn,<br>a new signal</strong></div>
           <span>One thing worth<br>your attention.</span>
@@ -528,7 +640,7 @@
         </div>
       </section>
 
-      <section class="dispatch reveal d3" aria-label="Email signup">
+      <section class="dispatch" aria-label="Email signup">
         <div class="dispatch-left">
           <h3>Get tomorrow's <i>signal</i> in your inbox.</h3>
           <p>One email. Every morning at 04:05 AEST. The same story you see here, delivered before coffee.</p>
@@ -537,15 +649,16 @@
           <div id="cta-signup-form">
             <form onsubmit="return handleSignup(event,'cta')" novalidate>
               <label for="cta-email" style="position:absolute; left:-9999px">Email address</label>
-              <input type="email" id="cta-email" name="email" required autocomplete="email" placeholder="kelso@good.boy" aria-label="Email address" aria-describedby="cta-error" aria-invalid="false">
-              <button type="submit">Subscribe for free</button>
+              <input type="email" id="cta-email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="off" maxlength="254" placeholder="kelso@good.boy" aria-label="Email address" aria-describedby="cta-error cta-hint" aria-invalid="false">
+              <button type="submit" aria-label="Subscribe to The Daily Random">Subscribe for free</button>
             </form>
             <div id="cta-error" class="field-error" role="alert" aria-live="polite"></div>
-            <div class="micro">One email at 04:05 AEST. No spam. Unsubscribe anytime.</div>
+            <div id="cta-hint" class="micro">One email at 04:05 AEST. No spam. Unsubscribe anytime.</div>
+            <div id="cta-offline" class="field-error hidden" role="status" aria-live="polite" style="color:#FF8A80">You appear offline — Kelso will retry when you are back online.</div>
           </div>
           <div id="cta-signup-success" class="hidden state-msg success">
             <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
-              <img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:28px; height:28px; object-fit:cover; object-position:center 22%; border:1.5px solid var(--acid); flex-shrink:0">
+              <button type="button" class="kelso-trigger" aria-label="View larger photo of Kelso" data-kelso-trigger style="width:28px; height:28px; border:1.5px solid var(--acid); flex-shrink:0; padding:0; overflow:hidden"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block"></button>
               <span>✓ You're subscribed. Kelso will transmit tomorrow at 04:05 AEST — check your inbox.</span>
               <span aria-hidden="true" style="letter-spacing:0.18em; opacity:0.9">🐾·🐾·🐾</span>
             </div>
@@ -568,9 +681,9 @@
         </div>
         <div id="past-entries" class="index-list"></div>
         <div id="empty-state" class="hidden" style="text-align:center; padding:32px 20px 36px; border:3px solid var(--ink); border-top:none; background:var(--paper-3)">
-          <div style="width:84px; height:84px; margin:0 auto 14px; background:var(--acid); border:3px solid var(--ink); padding:3px; transform:rotate(-2deg); box-shadow:4px 4px 0 var(--ink)">
+          <button type="button" class="kelso-trigger" aria-label="View larger photo of Kelso" data-kelso-trigger style="width:84px; height:84px; margin:0 auto 14px; background:var(--acid); border:3px solid var(--ink); padding:3px; transform:rotate(-2deg); box-shadow:4px 4px 0 var(--ink); display:block; cursor:zoom-in">
             <img src="assets/kelso.jpeg" alt="Kelso waiting" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; border:2px solid var(--ink); display:block">
-          </div>
+          </button>
           <p style="font-family:'Archivo Black',sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:-0.02em">Nothing logged yet.</p>
           <p style="font:600 13px 'Public Sans',sans-serif; color:var(--muted); margin-top:8px">Kelso is tuning tomorrow's transmission. Check back at 04:05 AEST — or read today's plate above.</p>
           <p aria-hidden="true" style="margin-top:10px; font:700 10px 'JetBrains Mono',monospace; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); opacity:0.55">*sniff sniff* — woof?</p>
@@ -586,11 +699,12 @@
           <div id="footer-signup-form" style="margin-top:14px">
             <form onsubmit="return handleSignup(event,'footer')" novalidate style="display:flex" class="mini-form">
               <label for="footer-email" style="position:absolute; left:-9999px">Email address</label>
-              <input type="email" id="footer-email" name="email" required autocomplete="email" placeholder="kelso@good.boy" aria-describedby="footer-error" aria-invalid="false">
-              <button type="submit">Subscribe for free</button>
+              <input type="email" id="footer-email" name="email" required autocomplete="email" inputmode="email" spellcheck="false" autocapitalize="off" maxlength="254" placeholder="kelso@good.boy" aria-label="Email address" aria-describedby="footer-error footer-hint" aria-invalid="false">
+              <button type="submit" aria-label="Subscribe to The Daily Random">Subscribe for free</button>
             </form>
             <div id="footer-error" class="field-error" role="alert" aria-live="polite"></div>
-            <div class="micro" style="color:rgba(255,255,255,0.55); margin-top:8px">One email at 04:05 AEST. No spam.</div>
+            <div id="footer-hint" class="micro" style="color:rgba(255,255,255,0.55); margin-top:8px">One email at 04:05 AEST. No spam.</div>
+            <div id="footer-offline" class="field-error hidden" role="status" aria-live="polite" style="color:#FF8A80">You appear offline — will retry when online.</div>
           </div>
           <div id="footer-signup-success" class="hidden state-msg success" style="margin-top:12px">✓ You're subscribed. See you at 04:05 AEST.</div>
           <div id="footer-signup-duplicate" class="hidden state-msg" style="margin-top:12px; color:rgba(255,255,255,0.7)">You're already on the list — tomorrow's 04:05 AEST email is on its way.</div>
@@ -605,7 +719,7 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
             </div>
             <span style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-0.02em">The Daily Random</span>
-            <span class="stamp" style="margin-left:auto; gap:6px"><img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:22px; height:22px; object-fit:cover; object-position:center 20%; border:1.5px solid var(--ink)"> <span>Operator Kelso</span></span>
+            <button type="button" class="stamp kelso-trigger" data-kelso-trigger aria-label="View larger photo of Kelso" style="margin-left:auto; gap:6px; cursor:zoom-in; appearance:none"><img src="assets/kelso.jpeg" alt="Kelso — Operator" style="width:22px; height:22px; object-fit:cover; object-position:center 20%; border:1.5px solid var(--ink); display:block"> <span>Operator Kelso</span></button>
           </div>
           <p class="colophon">A project by <a href="https://kelso.dotdoing.com">Kelso</a> · Broadcast from somewhere near the bowl. Transmitted daily at 04:00 AEST. Set in Archivo Black & JetBrains Mono.</p>
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase">
@@ -618,6 +732,32 @@
         <span>Transmitted in the browser</span><span>—○—</span><span>kelso.dotdoing.com/p/dailyrandom</span>
       </div>
     </footer>
+  </div>
+
+  <!-- Kelso Enlarger — brutal lightbox -->
+  <div id="kelso-viewer" hidden role="dialog" aria-modal="true" aria-label="Kelso enlarged view">
+    <div class="kv-backdrop" data-kv-close></div>
+    <div class="kv-frame" role="document">
+      <div class="kv-topbar">
+        <span style="display:flex; align-items:center; gap:10px"><span class="kv-dot" aria-hidden="true"></span> FILE <b>KELSO-09</b> — OPERATOR ON DUTY</span>
+        <button type="button" class="kv-close" aria-label="Close enlarged view" data-kv-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="kv-media">
+        <img id="kv-img" src="assets/kelso.jpeg" alt="Kelso — nose to the lens, very serious journalist" width="1120" height="1400">
+      </div>
+      <div class="kv-caption">
+        <div>
+          <h3>Operator <i>Kelso</i> — on file</h3>
+          <p>Actual dog pictured. Nose to the lens, 04:00 sharp. Tap outside or press <b style="background:var(--ink); color:var(--acid); padding:0 4px">ESC</b> to return to the log.</p>
+        </div>
+        <div class="kv-meta">
+          <span class="kv-tag">◉ VERY SERIOUS JOURNALIST</span>
+          <span class="kv-hint"><kbd>ESC</kbd> or click outside to close</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -899,9 +1039,32 @@
     };
     function unsplashSrcSet(url, widths){
       if(!url || !url.includes('unsplash.com')) return '';
-      return widths.map(w => url.replace(/w=\d+/, 'w='+w) + ' '+w+'w').join(', ');
+      try{ return widths.map(w => url.replace(/w=\d+/, 'w='+w) + ' '+w+'w').join(', '); }catch{ return ''; }
     }
-    if (ENTRIES.length === 0) {
+    // ——— harden helpers ———
+    function safeText(v, fallback){
+      return (typeof v === 'string' && v.trim().length) ? v.trim() : fallback;
+    }
+    function safeDate(dateStr){
+      if(typeof dateStr !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return null;
+      const d = new Date(dateStr + 'T00:00:00');
+      return isNaN(d.getTime()) ? null : d;
+    }
+    function formatMasthead(d){
+      try{ return d.toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase(); }
+      catch{ return d.toISOString().slice(0,10).toUpperCase(); }
+    }
+    function escapeHtmlForAria(s){
+      return safeText(s, '').slice(0,120);
+    }
+    // Filter and validate ENTRIES once
+    const RAW_ENTRIES = Array.isArray(ENTRIES) ? ENTRIES : [];
+    const VALID_ENTRIES = RAW_ENTRIES.filter(function(e){
+      return e && typeof e.slug === 'string' && e.slug.trim() && typeof e.title === 'string' && e.title.trim() && typeof e.date === 'string' && safeDate(e.date);
+    });
+    // Use valid list for counts, but still show empty-state if zero
+    try{
+    if (VALID_ENTRIES.length === 0) {
       document.getElementById('empty-state').classList.remove('hidden');
       document.getElementById('day-count').textContent = '1';
       document.getElementById('caption-no').textContent = '01';
@@ -909,9 +1072,14 @@
       document.getElementById('footer-no').textContent = '001';
       document.getElementById('wordmark').setAttribute('data-edition','01');
       const pn=document.getElementById('plate-num'); if(pn) pn.textContent='01';
+      // harden: still set masthead to today when no entries
+      try{
+        const now2 = new Date();
+        document.getElementById('masthead-date').textContent = formatMasthead(now2);
+      }catch{}
     } else {
-      const dayNum = ENTRIES.length;
-      document.getElementById('day-count').textContent = dayNum;
+      const dayNum = VALID_ENTRIES.length;
+      document.getElementById('day-count').textContent = String(dayNum);
       const padded2 = String(dayNum).padStart(2,'0');
       const padded3 = String(dayNum).padStart(3,'0');
       document.getElementById('caption-no').textContent = padded2;
@@ -923,79 +1091,260 @@
       const now = new Date();
       const nowAEST = new Date(now.getTime() + (600 + now.getTimezoneOffset()) * 60000);
       const today = nowAEST.getFullYear() + '-' + String(nowAEST.getMonth() + 1).padStart(2, '0') + '-' + String(nowAEST.getDate()).padStart(2, '0');
-      const byDate = [...ENTRIES].sort((a, b) => b.date.localeCompare(a.date));
-      const featured = byDate.find(e => e.date === today) || byDate[0];
-      const pastEntries = byDate.filter(e => e !== featured);
+      const byDate = [...VALID_ENTRIES].sort(function(a,b){
+        const da = a.date || ''; const db = b.date || '';
+        return db.localeCompare(da);
+      });
+      // harden: find today or fall back to newest valid; never undefined
+      let featured = byDate.find(function(e){ return e.date === today; }) || byDate[0];
+      if(!featured) featured = VALID_ENTRIES[0];
+      const pastEntries = byDate.filter(function(e){ return e !== featured; });
 
-      const mDate = new Date(featured.date + 'T00:00:00');
-      document.getElementById('masthead-date').textContent = mDate.toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase();
+      const mDate = safeDate(featured.date);
+      document.getElementById('masthead-date').textContent = mDate ? formatMasthead(mDate) : safeText(featured.date, '—').toUpperCase();
 
-      document.getElementById('featured-link').href = featured.url;
-      const featImg = featured.ogImage || FALLBACK_IMAGES[featured.slug] || '';
+      // harden: featured link may be missing/invalid
+      const featLink = document.getElementById('featured-link');
+      if(featLink){
+        const safeUrl = safeText(featured.url, '#');
+        // only allow http/https or relative
+        const isSafeUrl = /^(https?:\/\/|\/)/.test(safeUrl);
+        featLink.href = isSafeUrl ? safeUrl : '#';
+        if(featLink.href === '#'){ featLink.removeAttribute('target'); featLink.style.cursor='default'; }
+      }
+      const featImg = safeText(featured.ogImage, '') || safeText(FALLBACK_IMAGES[featured.slug],'');
       const featImgEl = document.getElementById('featured-img');
-      if (featImg) {
-        featImgEl.src = featImg;
-        const ss = unsplashSrcSet(featImg, [800,1200,1600]);
-        if(ss){ featImgEl.srcset = ss; featImgEl.sizes = '(max-width: 960px) 100vw, 58vw'; }
-        featImgEl.alt = featured.title;
-      } else { featImgEl.style.display='none'; }
+      const plateWrap = document.getElementById('plate-wrap');
+      if(featImgEl){
+        if (featImg) {
+          featImgEl.src = featImg;
+          const ss = unsplashSrcSet(featImg, [800,1200,1600]);
+          if(ss){ featImgEl.srcset = ss; featImgEl.sizes = '(max-width: 960px) 100vw, 58vw'; }
+          featImgEl.alt = safeText(featured.title, 'Featured transmission');
+          featImgEl.addEventListener('error', function(){
+            plateWrap?.classList.add('is-broken');
+            featImgEl.style.display='none';
+          }, {once:true});
+        } else {
+          plateWrap?.classList.add('is-broken');
+          featImgEl.style.display='none';
+        }
+      }
 
-      const featDate = new Date(featured.date + 'T00:00:00');
-      document.getElementById('featured-date').textContent = featDate.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
-      const tWords = featured.title.split(' ');
-      const titleHtml = tWords.length > 2 ? tWords.slice(0,-1).join(' ') + ' <em>' + tWords.slice(-1).join(' ') + '</em>' : featured.title;
-      document.getElementById('featured-title').innerHTML = titleHtml;
-      document.getElementById('featured-desc').textContent = featured.description;
+      // harden: featured date with fallback
+      const featDate = safeDate(featured.date);
+      document.getElementById('featured-date').textContent = featDate ? featDate.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' }) : safeText(featured.date,'Unknown date');
+      // harden: title — sanitize, allow long, preserve last-word italic without innerHTML injection
+      (function(){
+        const titleEl = document.getElementById('featured-title');
+        const rawTitle = safeText(featured.title, 'Untitled transmission');
+        // truncate visually via CSS, but harden extremely long single token (>60ch)
+        const displayTitle = rawTitle.length > 180 ? rawTitle.slice(0,177) + '…' : rawTitle;
+        const tWords = displayTitle.split(' ');
+        titleEl.textContent = '';
+        if(tWords.length > 2){
+          const head = tWords.slice(0,-1).join(' ') + ' ';
+          titleEl.appendChild(document.createTextNode(head));
+          const em = document.createElement('em');
+          em.textContent = tWords.slice(-1).join(' ');
+          titleEl.appendChild(em);
+        } else {
+          titleEl.textContent = displayTitle;
+        }
+        // expose full title for screen readers if truncated
+        if(displayTitle !== rawTitle) titleEl.title = rawTitle;
+      })();
+      document.getElementById('featured-desc').textContent = safeText(featured.description, 'No description available for this transmission.');
       const featTagsEl = document.getElementById('featured-tags');
-      featTagsEl.innerHTML = (featured.keywords || []).slice(0,5).map(k => `<span>${k}</span>`).join('');
+      if(featTagsEl){
+        featTagsEl.textContent = '';
+        const kws = Array.isArray(featured.keywords) ? featured.keywords.filter(function(k){ return typeof k==='string' && k.trim(); }).slice(0,5) : [];
+        kws.forEach(function(k){
+          const span = document.createElement('span');
+          // harden: extremely long keyword clipped to 28ch
+          const txt = k.trim().length > 28 ? k.trim().slice(0,27) + '…' : k.trim();
+          span.textContent = txt;
+          // full keyword on hover for a11y
+          if(txt !== k.trim()) span.title = k.trim();
+          featTagsEl.appendChild(span);
+        });
+      }
 
       const pastContainer = document.getElementById('past-entries');
       const pastCountEl = document.getElementById('past-count');
       if (pastEntries.length === 0) {
         document.getElementById('empty-state').classList.remove('hidden');
-        pastCountEl.textContent = '';
+        if(pastCountEl) pastCountEl.textContent = '';
       } else {
-        pastCountEl.textContent = `${pastEntries.length} earlier transmission${pastEntries.length===1?'':'s'} in the log`;
-        pastEntries.forEach((entry, i) => {
-          const d = new Date(entry.date + 'T00:00:00');
-          const dayName = d.toLocaleDateString('en-AU', { weekday:'short' }).toUpperCase();
-          const formatted = d.toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase();
-          const thumb = entry.ogImage || FALLBACK_IMAGES[entry.slug] || '';
-          const thumbSet = unsplashSrcSet(thumb, [344,688, 860]);
-          const idx = String(pastEntries.length - i).padStart(2,'0');
+        if(pastCountEl) pastCountEl.textContent = pastEntries.length + ' earlier transmission' + (pastEntries.length===1?'':'s') + ' in the log';
+        // harden: large datasets — paginate, 24 per page to avoid 1000+ DOM nodes at once
+        const INITIAL_LIMIT = 24;
+        const PAGE_SIZE = 24;
+        let rendered = 0;
+        let showMoreBtn = null;
+
+        function buildCard(entry, idx){
+          const d = safeDate(entry.date);
+          const dayName = d ? d.toLocaleDateString('en-AU', { weekday:'short' }).toUpperCase() : '—';
+          const formatted = d ? formatMasthead(d) : safeText(entry.date,'—').toUpperCase();
+          const thumb = safeText(entry.ogImage,'') || safeText(FALLBACK_IMAGES[entry.slug],'');
+          const thumbSet = unsplashSrcSet(thumb, [344,688,860]);
           const card = document.createElement('a');
-          card.href = entry.url;
-          card.target = '_blank';
-          card.rel = 'noopener noreferrer';
+          card.href = safeText(entry.url,'#');
+          // only external http gets new tab
+          if(/^https?:\/\//.test(card.href)){
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+          }
           card.className = 'entry-row';
-          card.setAttribute('aria-label', entry.title);
-          card.innerHTML = `
-            <div class="num"><small>LOG</small>${idx}</div>
-            <div class="thumb" aria-hidden="true"><div>${thumb?`<img src="${thumb}" srcset="${thumbSet}" sizes="(max-width: 560px) 100vw, (max-width: 960px) 118px, 172px" alt="" loading="lazy" decoding="async">`:``}</div></div>
-            <div class="main">
-              <div class="meta"><b>${dayName}</b> <span style="width:10px; height:2px; background:var(--ink); display:inline-block"></span> <span>${formatted}</span></div>
-              <h3>${entry.title}</h3>
-              <p>${entry.description}</p>
-            </div>
-            <div class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
-          `;
-          pastContainer.appendChild(card);
-        });
+          card.setAttribute('aria-label', escapeHtmlForAria(entry.title));
+
+          const num = document.createElement('div');
+          num.className = 'num';
+          const sm = document.createElement('small'); sm.textContent='LOG';
+          num.appendChild(sm);
+          num.appendChild(document.createTextNode(idx));
+
+          const thumbWrap = document.createElement('div');
+          thumbWrap.className = 'thumb';
+          thumbWrap.setAttribute('aria-hidden','true');
+          const inner = document.createElement('div');
+          if(thumb){
+            const img = document.createElement('img');
+            img.src = thumb;
+            if(thumbSet){ img.srcset = thumbSet; img.sizes = '(max-width: 560px) 100vw, (max-width: 960px) 164px, 224px'; }
+            img.alt = '';
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            img.addEventListener('error', function(){
+              thumbWrap.classList.add('is-broken');
+              if(!thumbWrap.querySelector('.thumb-fallback')){
+                const fallback = document.createElement('div');
+                fallback.className = 'thumb-fallback';
+                fallback.setAttribute('aria-hidden','true');
+                const fbSpan = document.createElement('span');
+                fbSpan.textContent = 'Image unavailable';
+                fallback.appendChild(fbSpan);
+                thumbWrap.appendChild(fallback);
+              }
+            }, {once:true});
+            inner.appendChild(img);
+          } else {
+            thumbWrap.classList.add('is-broken');
+            const fallback = document.createElement('div');
+            fallback.className = 'thumb-fallback';
+            const fbSpan = document.createElement('span');
+            fbSpan.textContent = 'No image';
+            fallback.appendChild(fbSpan);
+            thumbWrap.appendChild(fallback);
+          }
+          thumbWrap.appendChild(inner);
+
+          const main = document.createElement('div');
+          main.className = 'main';
+          const meta = document.createElement('div');
+          meta.className = 'meta';
+          const b = document.createElement('b'); b.textContent = dayName;
+          const sep = document.createElement('span'); sep.style.cssText='width:10px; height:2px; background:var(--ink); display:inline-block';
+          const dateSpan = document.createElement('span'); dateSpan.textContent = formatted;
+          meta.appendChild(b); meta.appendChild(sep); meta.appendChild(dateSpan);
+          const h3 = document.createElement('h3');
+          const rawTitle = safeText(entry.title, 'Untitled');
+          h3.textContent = rawTitle.length > 120 ? rawTitle.slice(0,117) + '…' : rawTitle;
+          if(rawTitle.length > 120) h3.title = rawTitle;
+          const p = document.createElement('p');
+          const rawDesc = safeText(entry.description,'');
+          // harden: description clamp still works; keep 220ch max to avoid overflow
+          p.textContent = rawDesc.length > 220 ? rawDesc.slice(0,217) + '…' : rawDesc;
+          if(rawDesc.length > 220) p.title = rawDesc;
+          main.appendChild(meta); main.appendChild(h3); main.appendChild(p);
+
+          const go = document.createElement('div');
+          go.className = 'go'; go.setAttribute('aria-hidden','true');
+          go.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>';
+
+          card.appendChild(num); card.appendChild(thumbWrap); card.appendChild(main); card.appendChild(go);
+          return card;
+        }
+
+        function renderNext(){
+          const frag = document.createDocumentFragment();
+          const next = pastEntries.slice(rendered, rendered + PAGE_SIZE);
+          next.forEach(function(entry, offset){
+            const globalIdx = pastEntries.length - (rendered + offset);
+            const idx = String(globalIdx).padStart(2,'0');
+            frag.appendChild(buildCard(entry, idx));
+          });
+          pastContainer.appendChild(frag);
+          rendered += next.length;
+          if(showMoreBtn){
+            showMoreBtn.textContent = 'Show ' + Math.min(PAGE_SIZE, pastEntries.length - rendered) + ' more — ' + (pastEntries.length - rendered) + ' remaining';
+            if(rendered >= pastEntries.length){
+              showMoreBtn.remove(); showMoreBtn = null;
+            }
+          }
+          // harden: announce to screen readers
+          if(pastCountEl) pastCountEl.textContent = rendered + ' of ' + pastEntries.length + ' in the log' + (rendered < pastEntries.length ? ' — showing ' + rendered : '');
+        }
+
+        renderNext();
+        if(pastEntries.length > INITIAL_LIMIT){
+          showMoreBtn = document.createElement('button');
+          showMoreBtn.type = 'button';
+          showMoreBtn.className = 'load-more';
+          showMoreBtn.textContent = 'Show ' + PAGE_SIZE + ' more — ' + (pastEntries.length - rendered) + ' remaining';
+          showMoreBtn.addEventListener('click', renderNext);
+          // harden: keyboard accessible, announce
+          showMoreBtn.setAttribute('aria-label', 'Load more transmissions');
+          pastContainer.after(showMoreBtn);
+        }
       }
     }
+    }catch(err){
+      console.warn('Daily Random init failed', err);
+      // harden: show empty-state with error hint rather than blank page
+      try{
+        document.getElementById('empty-state')?.classList.remove('hidden');
+        const es = document.getElementById('empty-state');
+        if(es && !es.querySelector('[data-init-error]')){
+          const p = document.createElement('p');
+          p.setAttribute('data-init-error','');
+          p.style.cssText='margin-top:8px; font:600 12px \"JetBrains Mono\",monospace; color:var(--muted)';
+          p.textContent='Kelso had trouble loading today’s log — refresh to retry.';
+          es.appendChild(p);
+        }
+      }catch{}
+    }
     const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    function validateEmail(e){ return EMAIL_RE.test(e); }
+    function validateEmail(e){
+      if(typeof e !== 'string') return false;
+      if(e.length > 254) return false;
+      if(e.length < 6) return false;
+      return EMAIL_RE.test(e);
+    }
+    // harden: prevent double-submit and handle offline/abort
+    const submitting = new Set();
+    let offlineNotified = false;
     function setLoading(prefix, loading){
       const form = document.getElementById(prefix + '-signup-form');
       if(!form) return;
       const btn = form.querySelector('button[type="submit"]');
       const input = form.querySelector('input[type="email"]');
-      if(loading){ btn.disabled=true; btn.textContent='Kelso is sniffing…'; if(input) input.disabled=true; }
-      else { btn.disabled=false; btn.textContent='Subscribe for free'; if(input) input.disabled=false; }
+      if(loading){
+        if(btn){ btn.disabled=true; btn.textContent='Kelso is sniffing…'; btn.setAttribute('aria-busy','true'); }
+        if(input) input.disabled=true;
+        submitting.add(prefix);
+      } else {
+        if(btn){ btn.disabled=false; btn.textContent='Subscribe for free'; btn.removeAttribute('aria-busy'); }
+        if(input) input.disabled=false;
+        submitting.delete(prefix);
+      }
     }
     function showError(prefix, msg){
       const el = document.getElementById(prefix + '-error');
       const input = document.getElementById(prefix + '-email');
+      const off = document.getElementById(prefix + '-offline');
+      if(off) off.classList.add('hidden');
       if(el){ el.textContent=msg; el.classList.add('show'); el.classList.remove('hidden'); }
       if(input){ input.classList.add('input-error'); input.setAttribute('aria-invalid','true'); }
     }
@@ -1004,10 +1353,19 @@
       const input = document.getElementById(prefix + '-email');
       if(el){ el.classList.remove('show'); el.classList.add('hidden'); el.textContent=''; }
       if(input){ input.classList.remove('input-error'); input.setAttribute('aria-invalid','false'); }
+      const off = document.getElementById(prefix + '-offline');
+      if(off) off.classList.add('hidden');
+    }
+    function showOffline(prefix){
+      const off = document.getElementById(prefix + '-offline');
+      if(off){ off.classList.remove('hidden'); off.classList.add('show'); }
     }
     function showSuccess(prefix){
       const f=document.getElementById(prefix + '-signup-form'); if(f) f.classList.add('hidden');
       document.getElementById(prefix + '-signup-success')?.classList.remove('hidden');
+      // harden: hide other states
+      document.getElementById(prefix + '-signup-error')?.classList.add('hidden');
+      document.getElementById(prefix + '-offline')?.classList.add('hidden');
     }
     function showDuplicate(prefix){
       const f=document.getElementById(prefix + '-signup-form'); if(f) f.classList.add('hidden');
@@ -1019,35 +1377,67 @@
       const m=document.getElementById(prefix + '-signup-error-msg');
       if(m && msgId) m.textContent=msgId;
       if(c) c.classList.remove('hidden');
+      const off = document.getElementById(prefix + '-offline');
+      if(off) off.classList.add('hidden');
     }
     function resetSignupForm(prefix){
+      submitting.delete(prefix);
       document.getElementById(prefix + '-signup-form')?.classList.remove('hidden');
       document.getElementById(prefix + '-signup-success')?.classList.add('hidden');
       document.getElementById(prefix + '-signup-duplicate')?.classList.add('hidden');
       document.getElementById(prefix + '-signup-error')?.classList.add('hidden');
       hideError(prefix);
+      const btn = document.querySelector('#' + prefix + '-signup-form button[type=\"submit\"]');
+      if(btn){ btn.disabled=false; btn.textContent='Subscribe for free'; btn.removeAttribute('aria-busy'); }
       const input=document.getElementById(prefix + '-email');
-      if(input){ input.value=''; input.focus(); }
+      if(input){ input.value=''; input.disabled=false; input.classList.remove('input-error'); input.setAttribute('aria-invalid','false'); input.focus(); }
     }
     async function handleSignup(event, prefix){
       event.preventDefault();
+      if(submitting.has(prefix)) return false;
       hideError(prefix);
       const input=document.getElementById(prefix + '-email');
-      const email=input.value.trim().toLowerCase();
+      const raw = input.value.trim();
+      const email = raw.toLowerCase();
+      // harden: empty and length checks before regex
+      if(!raw){ showError(prefix,'Enter your email — try kelso@good.boy.'); return false; }
+      if(raw.length > 254){ showError(prefix,'That email is too long — check for extra characters.'); return false; }
       if(!validateEmail(email)){ showError(prefix,'Enter an email like kelso@good.boy — check for typos.'); return false; }
+      // harden: offline early exit
+      if(typeof navigator !== 'undefined' && navigator.onLine === false){
+        showOffline(prefix);
+        showError(prefix,'You appear offline — check your connection, then try again.');
+        return false;
+      }
       setLoading(prefix,true);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(function(){ controller.abort(); }, 10000);
       try{
-        const res=await fetch('/subscribe',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email})});
+        const res=await fetch('/subscribe',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email}), signal: controller.signal});
+        clearTimeout(timeoutId);
         setLoading(prefix,false);
         if(res.ok || res.status===200 || res.status===201){ showSuccess(prefix); }
         else if(res.status===409){ showDuplicate(prefix); }
         else if(res.status===422){ showError(prefix,"That email doesn't look right — check the format and try again."); }
         else if(res.status===429){ showRemoteError(prefix,"Kelso's bowl is full — wait a moment, then try again."); }
+        else if(res.status===413){ showError(prefix,"That email is too long — try a shorter address."); }
+        else if(res.status>=500){ showRemoteError(prefix,"Kelso's server is napping — try again in a moment."); }
         else { showRemoteError(prefix,"We couldn't save your email. Check your connection and try again."); }
-      }catch(err){ setLoading(prefix,false); showRemoteError(prefix,"We couldn't save your email. Check your connection and try again."); }
+      }catch(err){
+        clearTimeout(timeoutId);
+        setLoading(prefix,false);
+        if(err && err.name === 'AbortError'){
+          showRemoteError(prefix,"Kelso timed out — your connection is slow. Try again.");
+        } else if(typeof navigator !== 'undefined' && navigator.onLine === false){
+          showOffline(prefix);
+          showRemoteError(prefix,"You appear offline — Kelso will retry when you are back online.");
+        } else {
+          showRemoteError(prefix,"We couldn't save your email. Check your connection and try again.");
+        }
+      }
       return false;
     }
-    document.querySelectorAll('input[type="email"]').forEach(input=>{
+    document.querySelectorAll('input[type="email"]').forEach(function(input){
       input.addEventListener('input', function(){
         this.classList.remove('input-error');
         this.setAttribute('aria-invalid','false');
@@ -1056,8 +1446,132 @@
           const err=form.parentElement?.querySelector('.field-error') || document.getElementById(this.id.replace('-email','-error'));
           if(err){ err.classList.remove('show'); err.classList.add('hidden'); }
         }
+        const prefix = this.id.replace('-email','');
+        const off = document.getElementById(prefix + '-offline');
+        if(off) off.classList.add('hidden');
+      });
+      // harden: prevent pasting extremely long strings from breaking layout
+      input.addEventListener('paste', function(e){
+        const pasted = (e.clipboardData || window.clipboardData)?.getData('text') || '';
+        if(pasted.length > 300){
+          e.preventDefault();
+          this.value = pasted.slice(0,254);
+          showError(this.id.replace('-email',''),'Pasted email was trimmed to 254 characters.');
+        }
       });
     });
+    // harden: global online/offline announcements
+    window.addEventListener('online', function(){
+      document.querySelectorAll('[id$=\"-offline\"]').forEach(function(el){ el.classList.add('hidden'); });
+    });
+    window.addEventListener('offline', function(){
+      if(!offlineNotified){
+        offlineNotified = true;
+        document.querySelectorAll('[id$=\"-offline\"]').forEach(function(el){ el.classList.remove('hidden'); });
+      }
+    });
+
+    // Kelso Enlarger — handles all kelso.jpeg triggers (hardened)
+    (function(){
+      const viewer = document.getElementById('kelso-viewer');
+      const kvImg = document.getElementById('kv-img');
+      if(!viewer || !kvImg) return;
+      let lastFocus = null;
+      let prevBodyOverflow = '';
+      let prevHtmlOverflow = '';
+      function getFocusable(container){
+        return Array.from(container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])')).filter(function(el){ return !el.hasAttribute('hidden') && !el.disabled; });
+      }
+      function openViewer(src){
+        const safeSrc = (typeof src === 'string' && src.length) ? src : 'assets/kelso.jpeg';
+        try{
+          if(safeSrc && kvImg.getAttribute('src') !== safeSrc){
+            kvImg.removeAttribute('srcset');
+            kvImg.src = safeSrc;
+          }
+        }catch{}
+        lastFocus = document.activeElement;
+        prevBodyOverflow = document.body.style.overflow;
+        prevHtmlOverflow = document.documentElement.style.overflow;
+        viewer.hidden = false;
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        // harden: hide background from AT
+        document.querySelectorAll('.wrap, .ticker').forEach(function(el){
+          el.setAttribute('aria-hidden','true');
+          // inert where supported
+          try{ el.inert = true; }catch{}
+        });
+        const closeBtn = viewer.querySelector('.kv-close');
+        if(closeBtn) closeBtn.focus();
+      }
+      function closeViewer(){
+        viewer.hidden = true;
+        document.body.style.overflow = prevBodyOverflow;
+        document.documentElement.style.overflow = prevHtmlOverflow;
+        document.querySelectorAll('.wrap, .ticker').forEach(function(el){
+          el.removeAttribute('aria-hidden');
+          try{ el.inert = false; }catch{}
+        });
+        if(lastFocus && lastFocus.focus){
+          try{ lastFocus.focus(); }catch{}
+        }
+      }
+      // harden: viewer img error
+      kvImg.addEventListener('error', function(){
+        kvImg.alt = 'Kelso image failed to load';
+        kvImg.style.display='none';
+        const fb = viewer.querySelector('.kv-media');
+        if(fb && !fb.querySelector('[data-kv-fb]')){
+          const p = document.createElement('div');
+          p.setAttribute('data-kv-fb','');
+          p.style.cssText='padding:24px; text-align:center; font:800 11px \"JetBrains Mono\",monospace; letter-spacing:0.08em; text-transform:uppercase';
+          p.textContent='Kelso image unavailable — nose to lens failed. Close to return.';
+          fb.appendChild(p);
+        }
+      });
+      // delegate: any [data-kelso-trigger] click
+      document.addEventListener('click', function(e){
+        const trigger = e.target.closest('[data-kelso-trigger]');
+        if(trigger){
+          e.preventDefault();
+          const img = trigger.tagName === 'IMG' ? trigger : trigger.querySelector('img');
+          let src = 'assets/kelso.jpeg';
+          try{ src = img ? (img.currentSrc || img.src) : 'assets/kelso.jpeg'; }catch{}
+          openViewer(src);
+        }
+        if(e.target.closest('[data-kv-close]')){
+          closeViewer();
+        }
+      });
+      // also catch direct img[src*=kelso] clicks that missed attribute (fallback)
+      document.addEventListener('click', function(e){
+        const t = e.target;
+        if(t.tagName === 'IMG' && t.src && t.src.includes('kelso.jpeg') && !t.closest('[data-kelso-trigger]')){
+          e.preventDefault();
+          let src = 'assets/kelso.jpeg';
+          try{ src = t.currentSrc || t.src; }catch{}
+          openViewer(src);
+        }
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && !viewer.hidden) { e.preventDefault(); closeViewer(); }
+        // harden: focus trap inside viewer
+        if(!viewer.hidden && e.key === 'Tab'){
+          const focusable = getFocusable(viewer);
+          if(focusable.length === 0) return;
+          const first = focusable[0]; const last = focusable[focusable.length-1];
+          if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+          else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+        }
+      });
+      // prevent close when clicking inside frame (unless close button)
+      viewer.querySelector('.kv-frame')?.addEventListener('click', function(e){ e.stopPropagation(); });
+      // click outside frame closes (backdrop already has data-kv-close, but also handle empty area)
+      viewer.addEventListener('click', function(e){
+        if(e.target === viewer) closeViewer();
+      });
+    })();
   </script>
 </body>
 </html>
