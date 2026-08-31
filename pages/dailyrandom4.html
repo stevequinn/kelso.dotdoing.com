@@ -21,10 +21,10 @@
     /* fallback metric alignment to prevent CLS */
     @font-face{font-family:"Archivo Fallback"; src:local("Arial Black"), local("Impact"); ascent-override:72%; descent-override:18%; line-gap-override:0%; size-adjust:112%}
     @font-face{font-family:"Public Fallback"; src:local("Arial"), local("Helvetica"); ascent-override:92%; descent-override:22%; size-adjust:104%}
-    /* THESIS: Late-night transmission log from a control room — the daily wonder as a broadcast signal, not a specimen. Brutal, high-contrast and off-kilter against the previous ledger's archival warmth. Rejects serif elegance for block grotesk + mono system utility.
+    /* THESIS: Late-night catalogue log from a control room — the daily wonder as a filed specimen, not a broadcast. Brutal, high-contrast and off-kilter against the previous ledger's archival warmth, but now the ledger is the point. Rejects serif elegance for block grotesk + mono system utility.
        OWN-WORLD: Concrete paper #EDEBE1 against ink #0A0A0A, acid signal yellow #FFEB2A as committed field (35% surface), steel #8B8680 + cyan tap #00E6C8 as functional accents only; Archivo Black for brutal wordmark, Public Sans 700/800 for headings, JetBrains Mono for system data; 3px black rules, 12px deepshadow offsets, perforated punch-card details, no soft paper shadows, no warm tints.
-       STORY: Visitor tunes into a daily signal — one strange transmission at 04:00 — trusts Kelso the operator, and either catches today's broadcast or scrolls the log.
-       FIRST VIEWPORT: Full-bleed signal bar → stacked block wordmark (DAILY solid / RANDOM stroked) colliding with oversized broadcast plate image (duotone yellow ink), overlapping yellow accession slab with date + archive arrow — primary action is the plate itself.
+       STORY: Visitor opens the catalogue — one strange wonder at 04:00 — trusts Kelso the operator, and either catches today's wonder or scrolls the log.
+        FIRST VIEWPORT: Full-bleed signal bar → latest wonder plate (duotone yellow ink, today's entry) as primary — stacked block wordmark hero (DAILY solid / RANDOM stroked + yellow date slab) follows second, then every-dawn statement. Wonder leads; identity confirms.
        FORM: Transit-signal / laboratory control log — sourced from Swiss departures boards + 1970s Bell Labs memoranda + late-night radio station logs. Polar opposite to accession ledger.
        FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance */
     :root{
@@ -567,48 +567,24 @@
   </style>
 </head>
 <body>
-  <a href="#archive" class="skip">Skip to transmission log</a>
-  <div class="ticker" aria-hidden="true"><span>● THE DAILY RANDOM — TRANSMISSION LOG — 04:00 AEST — KELSO DOT DOING — CATALOGUE OF SMALL WONDERS ●</span></div>
+  <a href="#archive" class="skip">Skip to catalogue</a>
+  <div class="ticker" aria-hidden="true"><span>● THE DAILY RANDOM — CATALOGUE LOG — 04:00 AEST — KELSO DOT DOING — CATALOGUE OF SMALL WONDERS ●</span></div>
 
   <div class="wrap">
     <div class="signal-bar" role="status" aria-live="polite">
-      <div class="signal-left"><span class="pulse" aria-hidden="true"></span> <button type="button" class="kelso-trigger signal-kelso" aria-label="View larger photo of Kelso" data-kelso-trigger style="width:26px; height:26px; border:1.5px solid var(--acid); flex-shrink:0; padding:0; overflow:hidden; display:inline-flex"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block"></button> DAILY TRANSMISSION <b>No. <span id="day-count">—</span></b> — NEW AT 04:00 AEST</div>
-      <div class="signal-right">2026 · VOL. 1 — SIGNAL LOCKED</div>
+      <div class="signal-left"><span class="pulse" aria-hidden="true"></span> <button type="button" class="kelso-trigger signal-kelso" aria-label="View larger photo of Kelso" data-kelso-trigger style="width:26px; height:26px; border:1.5px solid var(--acid); flex-shrink:0; padding:0; overflow:hidden; display:inline-flex"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; display:block"></button> DAILY WONDER <b>No. <span id="day-count">—</span></b> — NEW AT 04:00 AEST</div>
+      <div class="signal-right">2026 · VOL. 1 — CATALOGUE OPEN</div>
     </div>
 
-    <header class="mast reveal">
-      <div class="mast-main">
-        <div class="kelso-lockup">
-          <button type="button" class="kelso-badge kelso-trigger" aria-label="View larger photo of Kelso — nose to the lens" data-kelso-trigger><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens"></button>
-          <div>
-            <h1 class="wordmark" id="wordmark" data-edition="—"><span class="the">The</span><span class="daily">Daily</span><span class="random">Random.</span></h1>
-            <span class="kelso-tag">Operated by Kelso 🐾 — very serious journalist</span>
-          </div>
-        </div>
-        <p class="mast-sub">One <i>strange, beautiful</i> story every morning. <b>Kelso</b> hunts the overlooked corners of the world and transmits what he finds — at 04:00 AEST. No feed, no scroll. Actual dog pictured.</p>
-      </div>
-      <div class="mast-side">
-        <div class="side-top">
-          <div class="side-kicker"><i></i> Today’s file</div>
-          <div class="side-date" id="masthead-date">—</div>
-          <div class="side-note">One story to sit with. Read it, then get on with your day.</div>
-        </div>
-        <a href="#archive" class="side-cta" aria-label="Browse log">
-          <span>Browse log →</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-        </a>
-      </div>
-    </header>
-
     <main>
-      <a href="#" id="featured-link" target="_blank" rel="noopener noreferrer" class="broadcast reveal d1" aria-label="Featured transmission">
+      <a href="#" id="featured-link" target="_blank" rel="noopener noreferrer" class="broadcast reveal" aria-label="Featured wonder — latest entry">
         <div class="plate" id="plate-wrap">
-          <div class="plate-badge"><i></i> ON AIR — EDITION <span id="caption-no">—</span></div>
+          <div class="plate-badge"><i></i> ON FILE — EDITION <span id="caption-no">—</span></div>
           <img id="featured-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" loading="eager" fetchpriority="high" decoding="async" onerror="this.closest('.plate')?.classList.add('is-broken')">
-          <div class="plate-fallback" aria-hidden="true"><b>Signal lost — image unavailable</b><span>Kelso is fetching again. Title and story remain below.</span></div>
+          <div class="plate-fallback" aria-hidden="true"><b>File missing — image unavailable</b><span>Kelso is fetching again. Title and story remain below.</span></div>
           <div class="plate-num" id="plate-num" aria-hidden="true">—</div>
           <div class="plate-caption">
-            <span id="featured-caption-left">EDITION <span id="caption-no-2">—</span> — TODAY'S TRANSMISSION</span>
+            <span id="featured-caption-left">EDITION <span id="caption-no-2">—</span> — TODAY'S WONDER</span>
             <b id="featured-caption-right">kelso.dotdoing.com →</b>
           </div>
         </div>
@@ -622,28 +598,52 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
             </div>
             <div>
-              <small>Full transmission — free to read</small>
+              <small>Full wonder — free to read</small>
               <strong>Read the full story</strong>
             </div>
           </div>
         </div>
       </a>
 
+      <header class="mast reveal d1" aria-label="The Daily Random — site hero">
+        <div class="mast-main">
+          <div class="kelso-lockup">
+            <button type="button" class="kelso-badge kelso-trigger" aria-label="View larger photo of Kelso — nose to the lens" data-kelso-trigger><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens"></button>
+            <div>
+              <h1 class="wordmark" id="wordmark" data-edition="—"><span class="the">The</span><span class="daily">Daily</span><span class="random">Random.</span></h1>
+              <span class="kelso-tag">Operated by Kelso 🐾 — very serious journalist</span>
+            </div>
+          </div>
+          <p class="mast-sub">One <i>strange, beautiful</i> wonder every morning. <b>Kelso</b> hunts the overlooked corners of the world and catalogues what he finds — at 04:00 AEST. No feed, no scroll. Actual dog pictured.</p>
+        </div>
+        <div class="mast-side">
+          <div class="side-top">
+            <div class="side-kicker"><i></i> Today’s file</div>
+            <div class="side-date" id="masthead-date">—</div>
+            <div class="side-note">One story to sit with. Read it, then get on with your day.</div>
+          </div>
+          <a href="#archive" class="side-cta" aria-label="Browse log">
+            <span>Browse log →</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </a>
+        </div>
+      </header>
+
       <section class="statement" aria-label="About">
         <div class="statement-left">
-          <div style="display:flex; align-items:center; gap:10px"><span class="dot"></span> <strong>Every dawn,<br>a new signal</strong></div>
+          <div style="display:flex; align-items:center; gap:10px"><span class="dot"></span> <strong>Every dawn,<br>a new wonder</strong></div>
           <span>One thing worth<br>your attention.</span>
         </div>
         <div class="statement-right">
-          <p>Kelso picks one <i>obscure, specific</i> topic worth your morning and puts it on the air. No algorithm. No infinite scroll — just one signal worth catching.</p>
+          <p>Kelso picks one <i>obscure, specific</i> wonder worth your morning and files it in the catalogue. No algorithm. No infinite scroll — just one wonder worth your morning.</p>
           <div class="by">Curated by <b>Kelso</b> — a dog with opinions · Daily at 04:00 AEST</div>
         </div>
       </section>
 
       <section class="dispatch" aria-label="Email signup">
         <div class="dispatch-left">
-          <h3>Get tomorrow's <i>signal</i> in your inbox.</h3>
-          <p>One email. Every morning at 04:05 AEST. The same story you see here, delivered before coffee.</p>
+          <h3>Get tomorrow's <i>wonder</i> in your inbox.</h3>
+          <p>One email. Every morning at 04:05 AEST. The same wonder you see here, delivered before coffee.</p>
         </div>
         <div class="dispatch-form">
           <div id="cta-signup-form">
@@ -685,7 +685,7 @@
             <img src="assets/kelso.jpeg" alt="Kelso waiting" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; border:2px solid var(--ink); display:block">
           </button>
           <p style="font-family:'Archivo Black',sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:-0.02em">Nothing logged yet.</p>
-          <p style="font:600 13px 'Public Sans',sans-serif; color:var(--muted); margin-top:8px">Kelso is tuning tomorrow's transmission. Check back at 04:05 AEST — or read today's plate above.</p>
+          <p style="font:600 13px 'Public Sans',sans-serif; color:var(--muted); margin-top:8px">Kelso is cataloguing tomorrow's wonder. Check back at 04:05 AEST — or read today's plate above.</p>
           <p aria-hidden="true" style="margin-top:10px; font:700 10px 'JetBrains Mono',monospace; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); opacity:0.55">*sniff sniff* — woof?</p>
         </div>
       </section>
@@ -694,8 +694,8 @@
     <footer>
       <div class="footer-grid">
         <div class="footer-left">
-          <div class="footer-kicker">Never miss a signal</div>
-          <div class="footer-title" style="margin-top:6px">Get the signal <i>every</i> morning</div>
+          <div class="footer-kicker">Never miss a wonder</div>
+          <div class="footer-title" style="margin-top:6px">Get the wonder <i>every</i> morning</div>
           <div id="footer-signup-form" style="margin-top:14px">
             <form onsubmit="return handleSignup(event,'footer')" novalidate style="display:flex" class="mini-form">
               <label for="footer-email" style="position:absolute; left:-9999px">Email address</label>
@@ -721,7 +721,7 @@
             <span style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-0.02em">The Daily Random</span>
             <button type="button" class="stamp kelso-trigger" data-kelso-trigger aria-label="View larger photo of Kelso" style="margin-left:auto; gap:6px; cursor:zoom-in; appearance:none"><img src="assets/kelso.jpeg" alt="Kelso — Operator" style="width:22px; height:22px; object-fit:cover; object-position:center 20%; border:1.5px solid var(--ink); display:block"> <span>Operator Kelso</span></button>
           </div>
-          <p class="colophon">A project by <a href="https://kelso.dotdoing.com">Kelso</a> · Broadcast from somewhere near the bowl. Transmitted daily at 04:00 AEST. Set in Archivo Black & JetBrains Mono.</p>
+          <p class="colophon">A project by <a href="https://kelso.dotdoing.com">Kelso</a> · Filed from somewhere near the bowl. Catalogued daily at 04:00 AEST. Set in Archivo Black & JetBrains Mono.</p>
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase">
             <span style="border:2px solid rgba(255,255,255,0.18); padding:6px 8px; background:rgba(255,255,255,0.06)">© 2026 Kelso</span>
             <span style="background:var(--acid); color:var(--ink); border:2px solid var(--acid); padding:6px 8px">No. <span id="footer-no">—</span> on air</span>
@@ -729,7 +729,7 @@
         </div>
       </div>
       <div style="display:flex; justify-content:space-between; padding:12px 16px; background:var(--acid); color:var(--ink); font:800 10px 'JetBrains Mono',monospace; letter-spacing:0.1em; text-transform:uppercase">
-        <span>Transmitted in the browser</span><span>—○—</span><span>kelso.dotdoing.com/p/dailyrandom</span>
+        <span>Catalogued in the browser</span><span>—○—</span><span>kelso.dotdoing.com/p/dailyrandom</span>
       </div>
     </footer>
   </div>
@@ -1120,7 +1120,7 @@
           featImgEl.src = featImg;
           const ss = unsplashSrcSet(featImg, [800,1200,1600]);
           if(ss){ featImgEl.srcset = ss; featImgEl.sizes = '(max-width: 960px) 100vw, 58vw'; }
-          featImgEl.alt = safeText(featured.title, 'Featured transmission');
+          featImgEl.alt = safeText(featured.title, 'Featured wonder');
           featImgEl.addEventListener('error', function(){
             plateWrap?.classList.add('is-broken');
             featImgEl.style.display='none';
@@ -1137,7 +1137,7 @@
       // harden: title — sanitize, allow long, preserve last-word italic without innerHTML injection
       (function(){
         const titleEl = document.getElementById('featured-title');
-        const rawTitle = safeText(featured.title, 'Untitled transmission');
+        const rawTitle = safeText(featured.title, 'Untitled wonder');
         // truncate visually via CSS, but harden extremely long single token (>60ch)
         const displayTitle = rawTitle.length > 180 ? rawTitle.slice(0,177) + '…' : rawTitle;
         const tWords = displayTitle.split(' ');
@@ -1154,7 +1154,7 @@
         // expose full title for screen readers if truncated
         if(displayTitle !== rawTitle) titleEl.title = rawTitle;
       })();
-      document.getElementById('featured-desc').textContent = safeText(featured.description, 'No description available for this transmission.');
+      document.getElementById('featured-desc').textContent = safeText(featured.description, 'No description available for this wonder.');
       const featTagsEl = document.getElementById('featured-tags');
       if(featTagsEl){
         featTagsEl.textContent = '';
@@ -1176,7 +1176,7 @@
         document.getElementById('empty-state').classList.remove('hidden');
         if(pastCountEl) pastCountEl.textContent = '';
       } else {
-        if(pastCountEl) pastCountEl.textContent = pastEntries.length + ' earlier transmission' + (pastEntries.length===1?'':'s') + ' in the log';
+        if(pastCountEl) pastCountEl.textContent = pastEntries.length + ' earlier wonder' + (pastEntries.length===1?'':'s') + ' in the catalogue';
         // harden: large datasets — paginate, 24 per page to avoid 1000+ DOM nodes at once
         const INITIAL_LIMIT = 24;
         const PAGE_SIZE = 24;
@@ -1295,7 +1295,7 @@
           showMoreBtn.textContent = 'Show ' + PAGE_SIZE + ' more — ' + (pastEntries.length - rendered) + ' remaining';
           showMoreBtn.addEventListener('click', renderNext);
           // harden: keyboard accessible, announce
-          showMoreBtn.setAttribute('aria-label', 'Load more transmissions');
+          showMoreBtn.setAttribute('aria-label', 'Load more wonders');
           pastContainer.after(showMoreBtn);
         }
       }
@@ -1565,8 +1565,19 @@
           else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
         }
       });
-      // prevent close when clicking inside frame (unless close button)
-      viewer.querySelector('.kv-frame')?.addEventListener('click', function(e){ e.stopPropagation(); });
+      // allow close button inside frame to bubble; block other inner clicks from reaching document
+      viewer.querySelector('.kv-frame')?.addEventListener('click', function(e){
+        if(e.target.closest('[data-kv-close]')) return;
+        e.stopPropagation();
+      });
+      // direct handlers ensure X and backdrop close even with stopPropagation
+      viewer.querySelectorAll('[data-kv-close]').forEach(function(el){
+        el.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          closeViewer();
+        });
+      });
       // click outside frame closes (backdrop already has data-kv-close, but also handle empty area)
       viewer.addEventListener('click', function(e){
         if(e.target === viewer) closeViewer();
