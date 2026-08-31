@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Daily Random — A Catalogue of Small Wonders</title>
+  <meta name="description" content="An archive of daily explorations into the strange, beautiful, and overlooked corners of the world. A new discovery every morning.">
+  <meta property="og:title" content="The Daily Random — A Catalogue of Small Wonders">
+  <meta property="og:description" content="An archive of daily explorations into the strange, beautiful, and overlooked corners of the world.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1515165562839-978bbcf18277?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8bG9uZG9uJTIwdW5kZXJncm91bmQlMjBtZXRyb3xlbnwwfDB8fHwxNzg1OTUyODc5fDA&ixlib=rb-4.1.0&q=80&w=1200">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kelso.dotdoing.com/p/dailyrandom">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kelso.dotdoing.com/p/dailyrandom">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta name="color-scheme" content="light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&family=Public+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* fallback metric alignment to prevent CLS */
+    @font-face{font-family:"Archivo Fallback"; src:local("Arial Black"), local("Impact"); ascent-override:72%; descent-override:18%; line-gap-override:0%; size-adjust:112%}
+    @font-face{font-family:"Public Fallback"; src:local("Arial"), local("Helvetica"); ascent-override:92%; descent-override:22%; size-adjust:104%}
+  </style>
+  <style>
+    /* THESIS: Late-night transmission log from a control room — the daily wonder as a broadcast signal, not a specimen. Brutal, high-contrast and off-kilter against the previous ledger's archival warmth. Rejects serif elegance for block grotesk + mono system utility.
+       OWN-WORLD: Concrete paper #EDEBE1 against ink #0A0A0A, acid signal yellow #FFEB2A as committed field (35% surface), steel #8B8680 + cyan tap #00E6C8 as functional accents only; Archivo Black for brutal wordmark, Public Sans 700/800 for headings, JetBrains Mono for system data; 3px black rules, 12px deepshadow offsets, perforated punch-card details, no soft paper shadows, no warm tints.
+       STORY: Visitor tunes into a daily signal — one strange transmission at 04:00 — trusts Kelso the operator, and either catches today's broadcast or scrolls the log.
+       FIRST VIEWPORT: Full-bleed signal bar → stacked block wordmark (DAILY solid / RANDOM stroked) colliding with oversized broadcast plate image (duotone yellow ink), overlapping yellow accession slab with date + archive arrow — primary action is the plate itself.
+       FORM: Transit-signal / laboratory control log — sourced from Swiss departures boards + 1970s Bell Labs memoranda + late-night radio station logs. Polar opposite to accession ledger.
+       FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance */
+    :root{
+      --paper:#EDEBE1;
+      --paper-2:#DDD9CE;
+      --paper-3:#F5F2EA;
+      --ink:#0A0A0A;
+      --ink-2:#1A1A1E;
+      --acid:#FFEB2A;
+      --acid-2:#FFE600;
+      --acid-deep:#E6D00A;
+      --steel:#8B8680;
+      --steel-light:#C2BEB6;
+      --line:#0A0A0A;
+      --line-light:#C2BEB6;
+      --muted:#6E6A63;
+      --faint:#9A9590;
+      --cyan:#00E6C8;
+      --success:#0A7A3A;
+      --error:#D01A2A;
+      --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:48px; --s-8:64px;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html{font-size:16px}
+    body{background:var(--paper); color:var(--ink); font-family:"Public Sans","Public Fallback", system-ui, sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; overflow-x:hidden; font-variant-ligatures:common-ligatures; font-feature-settings:"ss01" 1}
+    /* tabular numbers for log counts */
+    .signal-left b, .plate-num, .entry-row .num, #footer-no{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
+    a{color:inherit; text-decoration:none}
+    ::selection{background:var(--ink); color:var(--acid)}
+    ::-moz-selection{background:var(--ink); color:var(--acid)}
+    ::-webkit-scrollbar{width:10px; height:10px}
+    ::-webkit-scrollbar-track{background:var(--ink)}
+    ::-webkit-scrollbar-thumb{background:var(--acid); border:2px solid var(--ink)}
+    *{scrollbar-width:thin; scrollbar-color:var(--acid) var(--ink)}
+    :focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+    :focus:not(:focus-visible){outline:none}
+
+    .skip{position:absolute; left:-9999px; top:0; z-index:99; padding:10px 18px; background:var(--acid); color:var(--ink); font:800 12px "Public Sans",sans-serif; letter-spacing:0.06em; text-transform:uppercase}
+    .skip:focus{left:12px; top:12px}
+
+    .wrap{max-width:1280px; margin:0 auto; padding:0 var(--s-6); position:relative}
+    .hidden{display:none !important}
+
+    /* signal bar — thick black with moving yellow hazard */
+    .signal-bar{
+      background:var(--ink); color:var(--paper); display:flex; align-items:stretch; border:3px solid var(--ink); margin-top:0;
+      overflow:hidden; position:relative;
+    }
+    .signal-bar::after{
+      content:""; position:absolute; top:0; bottom:0; right:0; width:42%; opacity:0.9;
+      background: repeating-linear-gradient( -45deg, var(--acid) 0 14px, var(--ink) 14px 28px);
+      animation: drift 1.2s linear infinite;
+    }
+    @keyframes drift{ to{ background-position: 56px 0 } }
+    @media(prefers-reduced-motion:reduce){ .signal-bar::after{animation:none} }
+    .signal-left{
+      display:flex; align-items:center; gap:14px; padding:10px 18px; background:var(--ink); position:relative; z-index:1; flex:1;
+      font-family:"JetBrains Mono", monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700;
+    }
+    .signal-left b{color:var(--acid)}
+    .pulse{width:10px; height:10px; background:var(--acid); border-radius:50%; box-shadow:0 0 0 6px rgba(255,235,42,0.18); animation:pulse 1.6s ease-in-out infinite}
+    @keyframes pulse{0%,100%{transform:scale(1); opacity:1}50%{transform:scale(0.85); opacity:0.7}}
+    .signal-right{
+      display:flex; align-items:center; gap:10px; padding:10px 18px; background:var(--acid); color:var(--ink); position:relative; z-index:1;
+      font-family:"JetBrains Mono", monospace; font-size:10px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; white-space:nowrap;
+    }
+    /* narrow ticker rail on left edge */
+    .ticker{
+      position:fixed; left:0; top:0; bottom:0; width:28px; background:var(--ink); color:var(--acid); display:flex; align-items:center; justify-content:center; z-index:3;
+      writing-mode:vertical-rl; text-orientation:mixed; font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.28em; text-transform:uppercase; font-weight:700;
+      transform:rotate(180deg);
+    }
+    .ticker span{white-space:nowrap}
+    @media(max-width:1340px){ .ticker{display:none} }
+
+    /* mast — brutal stacked wordmark colliding with yellow slab */
+    .mast{
+      display:grid; grid-template-columns: 1.15fr 0.85fr; gap:0; align-items:stretch; margin-top:var(--s-6); border:3px solid var(--ink); background:var(--paper-3);
+      box-shadow: 8px 8px 0 var(--ink);
+      position:relative; overflow:hidden;
+    }
+    .mast-main{
+      padding:var(--s-6) var(--s-6) var(--s-5) var(--s-6); display:flex; flex-direction:column; justify-content:center; gap:var(--s-3); position:relative; background:var(--paper-3);
+    }
+    .kelso-lockup{display:flex; align-items:flex-start; gap:16px; margin-bottom:2px}
+    .kelso-badge{
+      width:86px; height:86px; flex-shrink:0; background:var(--acid); border:3px solid var(--ink);
+      padding:3px; transform:rotate(-3deg); box-shadow:4px 4px 0 var(--ink); position:relative; overflow:hidden;
+      transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+      cursor:default;
+    }
+    .kelso-badge:hover{transform:rotate(-1deg) scale(1.03); box-shadow:6px 6px 0 var(--ink)}
+    .kelso-badge:active{transform:rotate(1deg) scale(0.98)}
+    .kelso-badge img{width:100%; height:100%; object-fit:cover; display:block; border:2px solid var(--ink); object-position:center 22%; transition:transform .35s cubic-bezier(.22,1,.36,1)}
+    .kelso-badge:hover img{transform:scale(1.08) rotate(1deg)}
+    .kelso-badge::after{
+      content:"WOOF"; position:absolute; bottom:-1px; right:-1px; background:var(--ink); color:var(--acid);
+      font:800 7px "JetBrains Mono", monospace; letter-spacing:0.12em; padding:2px 4px; line-height:1;
+      transition:transform .18s;
+    }
+    .kelso-badge:hover::after{transform:translateY(-1px) rotate(1deg)}
+    /* sniff wiggle on hover */
+    @keyframes sniff{0%,100%{transform:translateX(0)} 20%{transform:translateX(-1px)} 40%{transform:translateX(1px)} 60%{transform:translateX(-0.5px)}}
+    .kelso-badge:hover img{animation:sniff .38s ease 0.12s}
+    @media(prefers-reduced-motion:reduce){ .kelso-badge, .kelso-badge img, .kelso-badge::after{transition:none; animation:none} }
+    .kelso-tag{font-family:"JetBrains Mono", monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; color:var(--ink); background:var(--acid); border:1.5px solid var(--ink); padding:3px 5px; display:inline-block; transform:rotate(-1deg); margin-top:4px; box-shadow:2px 2px 0 var(--ink)}
+    @media(max-width:560px){ .kelso-badge{width:68px; height:68px} }
+    .wordmark{
+      font-family:"Archivo Black","Archivo Fallback", sans-serif; line-height:0.78; letter-spacing:-0.045em; text-transform:uppercase; font-size:clamp(54px, 8.2vw, 96px);
+      margin:0; position:relative; text-wrap:balance;
+    }
+    .wordmark .the{
+      font-family:"JetBrains Mono", monospace; font-size:0.13em; letter-spacing:0.22em; font-weight:700; display:flex; align-items:center; gap:10px; color:var(--muted); margin-bottom:10px; text-transform:uppercase;
+    }
+    .wordmark .the::before{content:""; width:28px; height:3px; background:var(--acid); display:inline-block}
+    .wordmark .daily{
+      display:block; color:var(--ink);
+    }
+    .wordmark .random{
+      display:block; color:transparent; -webkit-text-stroke:2.2px var(--ink); paint-order:stroke; position:relative; margin-top:-2px;
+    }
+    .wordmark .random::after{
+      content:"®"; position:absolute; top:0.08em; margin-left:6px; font-size:0.22em; -webkit-text-stroke:0; color:var(--ink); font-family:"Public Sans", sans-serif; font-weight:800;
+    }
+    .mast-sub{
+      margin-top:var(--s-2); font-family:"Public Sans","Public Fallback", sans-serif; font-size:15px; line-height:1.65; font-weight:500; color:var(--ink-2); max-width:58ch; border-left:3px solid var(--acid); padding-left:var(--s-3);
+    }
+    .mast-sub i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; font-size:1.05em}
+    .mast-sub b{background:var(--ink); color:var(--acid); padding:1px 5px; font-weight:800; font-size:0.82em; letter-spacing:0.02em}
+
+    .mast-side{
+      background:var(--acid); border-left:3px solid var(--ink); display:flex; flex-direction:column; position:relative;
+    }
+    .side-top{
+      flex:1; padding:22px 22px 18px 22px; display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative;
+    }
+    .side-top::before{
+      content:""; position:absolute; inset:12px; border:1.5px dashed rgba(10,10,10,0.18); pointer-events:none;
+    }
+    .side-kicker{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.16em; text-transform:uppercase; font-weight:800; color:var(--ink); display:flex; align-items:center; gap:8px}
+    .side-kicker i{width:8px; height:8px; background:var(--ink); display:inline-block}
+    .side-date{
+      font-family:"Archivo Black", sans-serif; font-size:36px; line-height:0.9; letter-spacing:-0.03em; text-transform:uppercase; position:relative;
+    }
+    .side-date em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; letter-spacing:-0.02em}
+    .side-note{font-family:"JetBrains Mono", monospace; font-size:10px; line-height:1.5; letter-spacing:0.04em; text-transform:uppercase; color:rgba(10,10,10,0.62); max-width:22ch}
+    .side-cta{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--ink); color:var(--acid); padding:14px 16px; border-top:3px solid var(--ink);
+      font-family:"JetBrains Mono", monospace; font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; transition:background .18s, color .18s;
+    }
+    .side-cta:hover{background:var(--paper); color:var(--ink)}
+    .side-cta svg{width:18px; height:18px; flex-shrink:0}
+
+    /* featured — broadcast plate */
+    .broadcast{
+      margin-top:var(--s-6); display:grid; grid-template-columns: 1.35fr 0.85fr; gap:0; border:3px solid var(--ink); background:var(--ink);
+      box-shadow: 8px 8px 0 var(--ink); position:relative; overflow:hidden;
+    }
+    .plate{
+      position:relative; background:var(--ink); min-height:560px; overflow:hidden; display:flex; flex-direction:column;
+    }
+    .plate img{
+      width:100%; height:100%; object-fit:cover; display:block;
+      filter:grayscale(1) contrast(1.15) brightness(0.95); mix-blend-mode:screen; opacity:0.95;
+      transition:filter .5s, transform .7s cubic-bezier(.22,1,.36,1)
+    }
+    .broadcast:hover .plate img{filter:grayscale(0) contrast(1) brightness(1); transform:scale(1.015)}
+    /* yellow duotone overlay */
+    .plate::after{
+      content:""; position:absolute; inset:0; background:var(--acid); mix-blend-mode:multiply; opacity:0.72; pointer-events:none; transition:opacity .5s;
+    }
+    .broadcast:hover .plate::after{opacity:0.32}
+    .plate-badge{
+      position:absolute; left:14px; top:14px; z-index:2; display:flex; align-items:center; gap:10px;
+      background:var(--paper); border:2px solid var(--ink); padding:7px 10px; box-shadow:4px 4px 0 var(--ink);
+      font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800;
+      transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+    }
+    .broadcast:hover .plate-badge{transform:rotate(-0.8deg) translateY(-1px)}
+    .plate-badge i{width:10px; height:10px; background:var(--acid); border:1.5px solid var(--ink); display:inline-block}
+    .plate-num{
+      position:absolute; right:-6px; bottom:18px; z-index:2; font-family:"Archivo Black", sans-serif; font-size:124px; line-height:1; letter-spacing:-0.06em; color:var(--acid);
+      -webkit-text-stroke:2px var(--ink); paint-order:stroke; opacity:0.95; pointer-events:none; user-select:none;
+    }
+    .plate-caption{
+      position:absolute; bottom:0; left:0; right:0; background:var(--paper); border-top:3px solid var(--ink); padding:9px 12px; display:flex; justify-content:space-between; align-items:center; gap:8px; z-index:2;
+      font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700;
+    }
+    .plate-caption b{font-weight:800}
+
+    .signal-copy{
+      background:var(--paper-3); padding:var(--s-6) var(--s-6) var(--s-5) var(--s-6); display:flex; flex-direction:column; gap:var(--s-3); border-left:3px solid var(--ink); position:relative;
+    }
+    .signal-copy::before{
+      content:""; position:absolute; left:-3px; top:18px; width:3px; height:48px; background:var(--acid);
+    }
+    .copy-kicker{
+      display:inline-flex; align-items:center; gap:8px; font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; color:var(--ink);
+      background:var(--acid); border:2px solid var(--ink); padding:6px 8px; width:fit-content; box-shadow:3px 3px 0 var(--ink);
+    }
+    .signal-copy h2{
+      font-family:"Public Sans","Public Fallback", sans-serif; font-size:clamp(28px, 3.1vw, 42px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; text-transform:uppercase; text-wrap:balance;
+      margin:0;
+    }
+    .signal-copy h2 em{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; color:var(--ink); background:var(--acid); padding:0 6px; box-decoration-break:clone}
+    .signal-copy > p{
+      font-family:"Public Sans","Public Fallback", sans-serif; font-size:16px; line-height:1.65; font-weight:500; color:var(--ink-2); margin:0; max-width:62ch;
+    }
+    .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0}
+    .tags span{
+      font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
+      padding:5px 7px; border:1.5px solid var(--ink); background:var(--paper); color:var(--ink); box-shadow:2px 2px 0 var(--ink);
+    }
+    .read-row{
+      margin-top:auto; padding-top:var(--s-4); border-top:3px solid var(--ink); display:flex; align-items:center; gap:var(--s-4); margin-left:calc(var(--s-6) * -1); margin-right:calc(var(--s-6) * -1); padding-left:var(--s-6); padding-right:var(--s-6); padding-bottom:var(--s-2);
+    }
+    .read-arrow{
+      width:46px; height:46px; background:var(--acid); border:2px solid var(--ink); display:grid; place-items:center; flex-shrink:0; box-shadow:3px 3px 0 var(--ink); transition:transform .18s, background .18s;
+    }
+    .broadcast:hover .read-arrow{transform:translateX(3px); background:var(--ink); color:var(--acid)}
+    .read-row small{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700; color:var(--muted); display:block}
+    .read-row strong{font-family:"Public Sans", sans-serif; font-size:14px; font-weight:800; letter-spacing:-0.02em; display:block; margin-top:1px; text-transform:uppercase}
+
+    /* statement — brutal left rule */
+    .statement{
+      margin-top:var(--s-7); display:grid; grid-template-columns: 1fr 1.6fr; gap:0; border:3px solid var(--ink); background:var(--paper-3); box-shadow:8px 8px 0 var(--ink);
+    }
+    .statement-left{
+      background:var(--acid); border-right:3px solid var(--ink); padding:22px 22px; display:flex; flex-direction:column; justify-content:center; gap:10px;
+    }
+    .statement-left .dot{width:14px; height:14px; background:var(--ink); border-radius:50%; display:inline-block}
+    .statement-left strong{font-family:"Archivo Black", sans-serif; font-size:13px; letter-spacing:0.1em; text-transform:uppercase; line-height:1.1}
+    .statement-left span{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:rgba(10,10,10,0.6)}
+    .statement-right{
+      padding:22px 24px; display:flex; flex-direction:column; justify-content:center;
+    }
+    .statement-right p{
+      font-family:"Public Sans","Public Fallback", sans-serif; font-size:17px; line-height:1.6; font-weight:600; color:var(--ink-2); max-width:65ch;
+    }
+    .statement-right p i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; background:var(--acid); padding:0 4px}
+    .statement-right .by{margin-top:10px; font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; color:var(--muted)}
+
+    /* dispatch — full acid */
+    .dispatch{
+      margin-top:var(--s-6); background:var(--acid); border:3px solid var(--ink); display:grid; grid-template-columns: 0.95fr 1.05fr; gap:0;
+      box-shadow:8px 8px 0 var(--ink); position:relative; overflow:hidden;
+    }
+    .dispatch-left{padding:var(--s-6); border-right:3px solid var(--ink); position:relative}
+    .dispatch-left h3{
+      font-family:"Archivo Black","Archivo Fallback", sans-serif; font-size:28px; line-height:0.88; letter-spacing:-0.035em; text-transform:uppercase; text-wrap:balance;
+    }
+    .dispatch-left h3 i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; background:var(--ink); color:var(--acid); padding:0 6px}
+    .dispatch-left p{margin-top:10px; font-family:"JetBrains Mono", monospace; font-size:11px; line-height:1.65; font-weight:500; letter-spacing:0.02em; text-transform:uppercase; color:rgba(10,10,10,0.72); max-width:44ch}
+    .dispatch-form{padding:var(--s-5) var(--s-6); background:var(--ink); color:var(--paper); display:flex; flex-direction:column; justify-content:center; gap:var(--s-2)}
+    .dispatch-form form{display:flex; gap:0; border:2px solid var(--paper); background:var(--ink)}
+    .dispatch-form input{flex:1; min-width:0; background:var(--paper); border:none; padding:14px 16px; font:700 14px/1 "JetBrains Mono", monospace; color:var(--ink); outline:none; letter-spacing:-0.01em}
+    .dispatch-form input::placeholder{color:var(--steel)}
+    .dispatch-form button{
+      background:var(--acid); color:var(--ink); border:none; border-left:2px solid var(--paper); padding:0 20px; font:800 11px "JetBrains Mono", monospace; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:background .18s; white-space:nowrap; min-height:48px;
+    }
+    .dispatch-form button:hover{background:var(--paper)}
+    .dispatch-form button:disabled{opacity:.6; cursor:not-allowed}
+    .micro{margin-top:10px; font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.55)}
+    .state-msg{margin-top:12px; font-size:13px; line-height:1.4; font-weight:600}
+    .state-msg.success{color:var(--acid)}
+    .state-msg.error{color:#FF8A80}
+    .field-error{margin-top:8px; font:700 12px "JetBrains Mono", monospace; color:#FF8A80; display:none}
+    .field-error.show{display:block}
+    .input-error{outline:2px solid #FF8A80}
+
+    /* archive — generous separation before log */
+    .index-head{
+      display:flex; align-items:center; justify-content:space-between; gap:var(--s-4); padding:var(--s-5) 0 var(--s-4) 0; border-bottom:3px solid var(--ink); margin-top:var(--s-7);
+    }
+    .index-head h2{font-family:"Archivo Black", sans-serif; font-size:22px; letter-spacing:-0.02em; text-transform:uppercase}
+    .index-head h2 i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; background:var(--acid); padding:0 6px}
+    .index-head small{font-family:"JetBrains Mono", monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; font-weight:800; color:var(--ink); background:var(--paper-3); border:2px solid var(--ink); padding:6px 8px; box-shadow:3px 3px 0 var(--ink)}
+    .index-list{border-left:3px solid var(--ink); border-right:3px solid var(--ink); background:var(--paper-3)}
+    .entry-row{
+      display:grid; grid-template-columns:56px 172px 1fr 52px; gap:0; border-bottom:2px solid var(--ink); background:var(--paper-3); transition:background .14s, transform .14s;
+      position:relative; overflow:hidden;
+    }
+    .entry-row::before{
+      content:""; position:absolute; top:10px; left:10px; right:10px; height:6px;
+      background: radial-gradient(circle, var(--ink) 2.5px, transparent 2.5px) repeat-x; background-size:12px 6px; opacity:0.14; pointer-events:none;
+    }
+    .entry-row:hover{background:#fff; transform:translateX(2px)}
+    .entry-row > *{padding:18px 14px; display:flex; flex-direction:column; justify-content:center}
+    .entry-row .num{
+      align-items:center; justify-content:center; border-right:2px solid var(--ink); font-family:"Archivo Black", sans-serif; font-size:18px; color:var(--ink); letter-spacing:-0.02em; background:var(--acid);
+      padding:18px 8px;
+    }
+    .entry-row .num small{font-family:"JetBrains Mono", monospace; font-size:9px; letter-spacing:0.12em; font-weight:800; margin-bottom:2px}
+    .entry-row .main{gap:var(--s-2); padding:var(--s-4) var(--s-4) var(--s-4) var(--s-4); padding-top:22px}
+    .entry-row .main .meta{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--muted); display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .entry-row .main .meta b{color:var(--ink); font-weight:800; background:var(--acid); padding:1px 5px; border:1.5px solid var(--ink)}
+    .entry-row .main h3{font-family:"Public Sans","Public Fallback", sans-serif; font-size:17px; line-height:1.12; letter-spacing:-0.025em; font-weight:800; text-transform:uppercase; text-wrap:balance}
+    .entry-row:hover .main h3{text-decoration:underline; text-decoration-thickness:3px; text-underline-offset:3px; text-decoration-color:var(--acid)}
+    .entry-row .main p{font-family:"Public Sans","Public Fallback", sans-serif; font-size:13.5px; line-height:1.55; font-weight:500; color:var(--muted); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:2px}
+    .entry-row .thumb{padding:0; align-items:stretch; justify-content:stretch; background:var(--ink); border-right:2px solid var(--ink); overflow:hidden; position:relative}
+    .entry-row .thumb div{width:100%; height:100%; min-height:112px; border:none; background:var(--ink); overflow:hidden; box-shadow:none; position:relative; display:block}
+    .entry-row .thumb img{width:100%; height:100%; min-height:112px; object-fit:cover; filter:saturate(0.85) contrast(1.05); transition:transform .45s cubic-bezier(.22,1,.36,1), filter .3s}
+    .entry-row:hover .thumb img{transform:scale(1.06); filter:saturate(1.15) contrast(1.02)}
+    /* yellow tape corner on image — peels on hover */
+    .entry-row .thumb::after{
+      content:""; position:absolute; left:8px; top:8px; width:28px; height:10px; background:var(--acid); border:1px solid var(--ink); opacity:0.95; transform:rotate(-3deg); box-shadow:1px 1px 0 var(--ink);
+      transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+    }
+    .entry-row:hover .thumb::after{transform:rotate(-1deg) translateY(-1px); box-shadow:1.5px 2px 0 var(--ink)}
+    /* tiny paw stamp appears on hover — product-specific discovery */
+    .entry-row .thumb::before{
+      content:"🐾"; position:absolute; right:8px; bottom:8px; width:22px; height:22px; display:grid; place-items:center; background:var(--paper); border:1.5px solid var(--ink); font-size:10px; line-height:1; opacity:0; transform:rotate(6deg) scale(0.9); transition:opacity .18s, transform .18s; z-index:1;
+    }
+    .entry-row:hover .thumb::before{opacity:1; transform:rotate(-4deg) scale(1)}
+    .entry-row .go{align-items:center; justify-content:center; border-left:2px solid var(--ink); background:var(--ink); color:var(--acid); transition:background .14s, color .14s; min-height:44px}
+    .entry-row:hover .go{background:var(--acid); color:var(--ink)}
+    .entry-row .go svg{width:16px; height:16px; transition:transform .18s}
+    .entry-row:hover .go svg{transform:translate(2px,-2px)}
+
+    /* footer — ink */
+    footer{margin-top:28px; border:3px solid var(--ink); background:var(--ink); color:var(--paper); box-shadow:8px 8px 0 var(--ink)}
+    .footer-grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:0}
+    .footer-left{padding:26px 26px; border-right:2px solid rgba(255,255,255,0.12)}
+    .footer-kicker{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; font-weight:800; color:var(--acid)}
+    .footer-title{font-family:"Archivo Black", sans-serif; font-size:20px; letter-spacing:-0.02em; text-transform:uppercase; line-height:1}
+    .footer-title i{font-family:"Instrument Serif", serif; font-style:italic; font-weight:400; text-transform:none; color:var(--acid)}
+    .mini-form{display:flex; border:2px solid var(--paper); background:var(--paper); margin-top:14px}
+    .mini-form input{flex:1; border:none; padding:12px 14px; font:700 13px "JetBrains Mono", monospace; outline:none; min-width:0; background:transparent; color:var(--ink)}
+    .mini-form button{background:var(--acid); color:var(--ink); border:none; border-left:2px solid var(--ink); padding:0 16px; font:800 11px "JetBrains Mono", monospace; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:background .18s; min-height:46px}
+    .mini-form button:hover{background:var(--ink); color:var(--acid)}
+    .footer-right{padding:26px 26px; display:flex; flex-direction:column; gap:12px; background:rgba(255,255,255,0.04)}
+    .colophon{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.6); line-height:1.7}
+    .colophon a{color:var(--acid); text-decoration:underline; text-underline-offset:3px}
+    .stamp{display:inline-flex; align-items:center; gap:8px; border:2px solid var(--paper); padding:7px 10px; background:var(--acid); color:var(--ink); transform:rotate(-1deg)}
+    .stamp span{font-family:"JetBrains Mono", monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; font-weight:800}
+
+    .reveal{opacity:0; transform:translateY(8px); animation:reveal .55s cubic-bezier(.22,1,.36,1) forwards}
+    .reveal.d1{animation-delay:.06s} .reveal.d2{animation-delay:.14s} .reveal.d3{animation-delay:.20s}
+    @keyframes reveal{to{opacity:1; transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){.reveal{animation:none; opacity:1; transform:none} .pulse{animation:none}}
+
+    @media(max-width:960px){
+      .mast{grid-template-columns:1fr}
+      .mast-side{border-left:none; border-top:3px solid var(--ink)}
+      .broadcast{grid-template-columns:1fr}
+      .plate{min-height:380px}
+      .plate-num{font-size:86px}
+      .signal-copy{border-left:none; border-top:3px solid var(--ink)}
+      .statement{grid-template-columns:1fr}
+      .statement-left{border-right:none; border-bottom:3px solid var(--ink)}
+      .dispatch{grid-template-columns:1fr}
+      .dispatch-left{border-right:none; border-bottom:3px solid var(--ink)}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-left{border-right:none; border-bottom:2px solid rgba(255,255,255,0.12)}
+      .entry-row{grid-template-columns:56px 118px 1fr 48px}
+      .entry-row .thumb div, .entry-row .thumb img{min-height:96px}
+    }
+    @media(max-width:560px){
+      .wrap{padding:0 14px}
+      .signal-left{font-size:10px}
+      .signal-right{display:none}
+      .wordmark{font-size:52px}
+      .wordmark .random{-webkit-text-stroke:1.8px var(--ink)}
+      .signal-copy{padding:20px 18px}
+      .entry-row{grid-template-columns:56px 1fr; grid-template-rows:auto auto}
+      .entry-row .thumb{grid-column:1 / -1; grid-row:1; border-right:none; border-bottom:2px solid var(--ink); min-height:180px}
+      .entry-row .thumb div, .entry-row .thumb img{min-height:180px; max-height:180px}
+      .entry-row .num{grid-row:2; align-self:stretch}
+      .entry-row .main{grid-column:2; grid-row:2}
+      .entry-row .go{display:none}
+      .entry-row::before{top:190px}
+      .dispatch-left h3{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <a href="#archive" class="skip">Skip to transmission log</a>
+  <div class="ticker" aria-hidden="true"><span>● THE DAILY RANDOM — TRANSMISSION LOG — 04:00 AEST — KELSO DOT DOING — CATALOGUE OF SMALL WONDERS ●</span></div>
+
+  <div class="wrap">
+    <div class="signal-bar" role="status" aria-live="polite">
+      <div class="signal-left"><span class="pulse" aria-hidden="true"></span> <img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:26px; height:26px; object-fit:cover; object-position:center 22%; border:1.5px solid var(--acid); flex-shrink:0"> DAILY TRANSMISSION <b>No. <span id="day-count">—</span></b> — NEW AT 04:00 AEST</div>
+      <div class="signal-right">2026 · VOL. 1 — SIGNAL LOCKED</div>
+    </div>
+
+    <header class="mast reveal">
+      <div class="mast-main">
+        <div class="kelso-lockup">
+          <div class="kelso-badge" aria-hidden="true"><img src="assets/kelso.jpeg" alt="Kelso — nose to the lens"></div>
+          <div>
+            <h1 class="wordmark" id="wordmark" data-edition="—"><span class="the">The</span><span class="daily">Daily</span><span class="random">Random.</span></h1>
+            <span class="kelso-tag">Operated by Kelso 🐾 — very serious journalist</span>
+          </div>
+        </div>
+        <p class="mast-sub">One <i>strange, beautiful</i> story every morning. <b>Kelso</b> hunts the overlooked corners of the world and transmits what he finds — at 04:00 AEST. No feed, no scroll. Actual dog pictured.</p>
+      </div>
+      <div class="mast-side">
+        <div class="side-top">
+          <div class="side-kicker"><i></i> Today’s file</div>
+          <div class="side-date" id="masthead-date">—</div>
+          <div class="side-note">One story to sit with. Read it, then get on with your day.</div>
+        </div>
+        <a href="#archive" class="side-cta" aria-label="Browse log">
+          <span>Browse log →</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <a href="#" id="featured-link" target="_blank" rel="noopener noreferrer" class="broadcast reveal d1" aria-label="Featured transmission">
+        <div class="plate">
+          <div class="plate-badge"><i></i> ON AIR — EDITION <span id="caption-no">—</span></div>
+          <img id="featured-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" loading="eager" fetchpriority="high" decoding="async">
+          <div class="plate-num" id="plate-num" aria-hidden="true">—</div>
+          <div class="plate-caption">
+            <span id="featured-caption-left">EDITION <span id="caption-no-2">—</span> — TODAY'S TRANSMISSION</span>
+            <b id="featured-caption-right">kelso.dotdoing.com →</b>
+          </div>
+        </div>
+        <div class="signal-copy">
+          <div class="copy-kicker"><span id="featured-date">—</span></div>
+          <h2 id="featured-title"></h2>
+          <p id="featured-desc"></p>
+          <div class="tags" id="featured-tags"></div>
+          <div class="read-row">
+            <div class="read-arrow" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </div>
+            <div>
+              <small>Full transmission — free to read</small>
+              <strong>Read the full story</strong>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <section class="statement reveal d2" aria-label="About">
+        <div class="statement-left">
+          <div style="display:flex; align-items:center; gap:10px"><span class="dot"></span> <strong>Every dawn,<br>a new signal</strong></div>
+          <span>One thing worth<br>your attention.</span>
+        </div>
+        <div class="statement-right">
+          <p>Kelso picks one <i>obscure, specific</i> topic worth your morning and puts it on the air. No algorithm. No infinite scroll — just one signal worth catching.</p>
+          <div class="by">Curated by <b>Kelso</b> — a dog with opinions · Daily at 04:00 AEST</div>
+        </div>
+      </section>
+
+      <section class="dispatch reveal d3" aria-label="Email signup">
+        <div class="dispatch-left">
+          <h3>Get tomorrow's <i>signal</i> in your inbox.</h3>
+          <p>One email. Every morning at 04:05 AEST. The same story you see here, delivered before coffee.</p>
+        </div>
+        <div class="dispatch-form">
+          <div id="cta-signup-form">
+            <form onsubmit="return handleSignup(event,'cta')" novalidate>
+              <label for="cta-email" style="position:absolute; left:-9999px">Email address</label>
+              <input type="email" id="cta-email" name="email" required autocomplete="email" placeholder="kelso@good.boy" aria-label="Email address" aria-describedby="cta-error" aria-invalid="false">
+              <button type="submit">Subscribe for free</button>
+            </form>
+            <div id="cta-error" class="field-error" role="alert" aria-live="polite"></div>
+            <div class="micro">One email at 04:05 AEST. No spam. Unsubscribe anytime.</div>
+          </div>
+          <div id="cta-signup-success" class="hidden state-msg success">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+              <img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:28px; height:28px; object-fit:cover; object-position:center 22%; border:1.5px solid var(--acid); flex-shrink:0">
+              <span>✓ You're subscribed. Kelso will transmit tomorrow at 04:05 AEST — check your inbox.</span>
+              <span aria-hidden="true" style="letter-spacing:0.18em; opacity:0.9">🐾·🐾·🐾</span>
+            </div>
+          </div>
+          <div id="cta-signup-duplicate" class="hidden state-msg" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+            <span>You're already subscribed — look for tomorrow's 04:05 AEST email. No need to sign up again.</span>
+            <span aria-hidden="true" style="opacity:0.6">🐾</span>
+          </div>
+          <div id="cta-signup-error" class="hidden state-msg error">
+            <span id="cta-signup-error-msg">We couldn't save your email. Check your connection and try again.</span><br>
+            <button onclick="resetSignupForm('cta')" style="margin-top:8px; background:none; border:2px solid rgba(255,255,255,0.4); color:#fff; padding:6px 10px; font:800 11px 'JetBrains Mono',monospace; letter-spacing:.06em; text-transform:uppercase; cursor:pointer">Try again</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="archive" aria-label="Archive">
+        <div class="index-head">
+          <h2>Previously — <i>the log</i></h2>
+          <small id="past-count"></small>
+        </div>
+        <div id="past-entries" class="index-list"></div>
+        <div id="empty-state" class="hidden" style="text-align:center; padding:32px 20px 36px; border:3px solid var(--ink); border-top:none; background:var(--paper-3)">
+          <div style="width:84px; height:84px; margin:0 auto 14px; background:var(--acid); border:3px solid var(--ink); padding:3px; transform:rotate(-2deg); box-shadow:4px 4px 0 var(--ink)">
+            <img src="assets/kelso.jpeg" alt="Kelso waiting" style="width:100%; height:100%; object-fit:cover; object-position:center 22%; border:2px solid var(--ink); display:block">
+          </div>
+          <p style="font-family:'Archivo Black',sans-serif; font-size:20px; text-transform:uppercase; letter-spacing:-0.02em">Nothing logged yet.</p>
+          <p style="font:600 13px 'Public Sans',sans-serif; color:var(--muted); margin-top:8px">Kelso is tuning tomorrow's transmission. Check back at 04:05 AEST — or read today's plate above.</p>
+          <p aria-hidden="true" style="margin-top:10px; font:700 10px 'JetBrains Mono',monospace; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink); opacity:0.55">*sniff sniff* — woof?</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-left">
+          <div class="footer-kicker">Never miss a signal</div>
+          <div class="footer-title" style="margin-top:6px">Get the signal <i>every</i> morning</div>
+          <div id="footer-signup-form" style="margin-top:14px">
+            <form onsubmit="return handleSignup(event,'footer')" novalidate style="display:flex" class="mini-form">
+              <label for="footer-email" style="position:absolute; left:-9999px">Email address</label>
+              <input type="email" id="footer-email" name="email" required autocomplete="email" placeholder="kelso@good.boy" aria-describedby="footer-error" aria-invalid="false">
+              <button type="submit">Subscribe for free</button>
+            </form>
+            <div id="footer-error" class="field-error" role="alert" aria-live="polite"></div>
+            <div class="micro" style="color:rgba(255,255,255,0.55); margin-top:8px">One email at 04:05 AEST. No spam.</div>
+          </div>
+          <div id="footer-signup-success" class="hidden state-msg success" style="margin-top:12px">✓ You're subscribed. See you at 04:05 AEST.</div>
+          <div id="footer-signup-duplicate" class="hidden state-msg" style="margin-top:12px; color:rgba(255,255,255,0.7)">You're already on the list — tomorrow's 04:05 AEST email is on its way.</div>
+          <div id="footer-signup-error" class="hidden state-msg error" style="margin-top:12px">
+            <span id="footer-signup-error-msg">Something went wrong. Try again later.</span><br>
+            <button onclick="resetSignupForm('footer')" style="margin-top:6px; background:var(--acid); border:2px solid var(--paper); color:var(--ink); padding:6px 10px; font:800 11px 'JetBrains Mono',monospace; cursor:pointer">Try again</button>
+          </div>
+        </div>
+        <div class="footer-right">
+          <div style="display:flex; align-items:center; gap:10px">
+            <div style="width:30px; height:30px; background:var(--acid); border:2px solid var(--ink); display:grid; place-items:center; color:var(--ink)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+            </div>
+            <span style="font-family:'Archivo Black',sans-serif; font-size:14px; text-transform:uppercase; letter-spacing:-0.02em">The Daily Random</span>
+            <span class="stamp" style="margin-left:auto; gap:6px"><img src="assets/kelso.jpeg" alt="" aria-hidden="true" style="width:22px; height:22px; object-fit:cover; object-position:center 20%; border:1.5px solid var(--ink)"> <span>Operator Kelso</span></span>
+          </div>
+          <p class="colophon">A project by <a href="https://kelso.dotdoing.com">Kelso</a> · Broadcast from somewhere near the bowl. Transmitted daily at 04:00 AEST. Set in Archivo Black & JetBrains Mono.</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase">
+            <span style="border:2px solid rgba(255,255,255,0.18); padding:6px 8px; background:rgba(255,255,255,0.06)">© 2026 Kelso</span>
+            <span style="background:var(--acid); color:var(--ink); border:2px solid var(--acid); padding:6px 8px">No. <span id="footer-no">—</span> on air</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; padding:12px 16px; background:var(--acid); color:var(--ink); font:800 10px 'JetBrains Mono',monospace; letter-spacing:0.1em; text-transform:uppercase">
+        <span>Transmitted in the browser</span><span>—○—</span><span>kelso.dotdoing.com/p/dailyrandom</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const ENTRIES = [
+  {
+    "date": "2026-08-29",
+    "title": "The Room That Understands Nothing",
+    "description": "Searle's 1980 Chinese Room argument: a machine can answer in fluent Chinese while understanding not a word. The recursive twist: the AI writing the page is the room itself.",
+    "keywords": ["chinese room","john searle","philosophy of mind","syntax vs semantics","turing test","ai consciousness","strong ai"],
+    "slug": "aNcCWEYvx",
+    "url": "https://kelso.dotdoing.com/p/aNcCWEYvx",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1761251946342-aa91414408f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8ZW1wdHklMjBkb29yd2F5JTIwcm9vbSUyMGxpZ2h0fGVufDB8MHx8fDE3ODc5MzgzMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-28",
+    "title": "The Planet's Fever, Read by Amateurs",
+    "description": "For two centuries, amateur naturalists have logged the first bud, the first frog, the first robin. Their backyards became the most sensitive climate instrument we have — and the satellites still can't see what they see.",
+    "keywords": ["phenology","citizen science","climate change","cherry blossom","seasonal timing","kyoto"],
+    "slug": "MTLGkz3pu",
+    "url": "https://kelso.dotdoing.com/p/MTLGkz3pu",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1523188567965-326ad8617ce0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8c3ByaW5nJTIwdHJlZSUyMGJ1ZCUyMGJyZWFraW5nJTIwY2xvc2UlMjB1cHxlbnwwfDB8fHwxNzg3ODUxODYwfDA&ixlib=rb-4.1.0&q=80&w=1600"
+  },
+  {
+    "date": "2026-08-27",
+    "title": "The Great Emu War",
+    "description": "In 1932 the Australian Army deployed machine guns against 20,000 emus ruining the wheat belt. After a month of war, the birds won. The strangest campaign in military history.",
+    "keywords": ["emu war","1932","western australia","military farce","absurd history","minister for defence"],
+    "slug": "rGgHgoUZZ",
+    "url": "https://kelso.dotdoing.com/p/rGgHgoUZZ",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1668175075401-2a860ba9965b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8ZW1wdHklMjBkb29yd2F5JTIwcm9vbSUyMGxpZ2h0fGVufDB8MHx8fDE3ODc5MzgzMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-26",
+    "title": "48 × 40",
+    "description": "A field manual for the wooden shipping pallet: the most important object nobody designed. How a crude platform with no author, no patent, and no fanfare became the terrain of world trade.",
+    "keywords": ["pallet","GMA spec","logistics","supply chain","field manual","reverse engineering","design history"],
+    "slug": "Kxz97WN3V",
+    "url": "https://kelso.dotdoing.com/p/Kxz97WN3V",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1594571194668-7112042d8f54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8d29vZGVuJTIwcGFsbGV0JTIwc3RhY2tlZHxlbnwwfDB8fHwxNzg3Njc5MTgwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-25",
+    "title": "The Runway That Had to Change Its Name",
+    "description": "Runway numbers are borrowed from the magnetic compass - and magnetic north refuses to hold still. How drifting poles force airports to sandblast and repaint their pavement.",
+    "keywords": ["runway numbering","magnetic north","world magnetic model","tampa international","aviation","geomagnetism"],
+    "slug": "KZtT2A7BW",
+    "url": "https://kelso.dotdoing.com/p/KZtT2A7BW",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1589470306223-3ea35cb25106?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8YWlycG9ydCUyMHJ1bndheSUyMGFlcmlhbHxlbnwwfDB8fHwxNzg3NjA4ODg3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-24",
+    "title": "The Museum of Jurassic Technology: A Cabinet of Wonders on Lenore Drive",
+    "description": "A real museum hidden in a Culver City strip mall that exhibits a bat choir of the dead, a Garden of Eden in a needle, and a theory of forgetting — and refuses to tell you what is true. The strangest museum in America is genuine.",
+    "keywords": ["museum of jurassic technology","wunderkammer","david wilson","culver city","cabinet of curiosities","microminiature"],
+    "slug": "WEPazxavi",
+    "url": "https://kelso.dotdoing.com/p/WEPazxavi",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1728506972831-193841eb2961?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8Y2FiaW5ldCUyMG9mJTIwY3VyaW9zaXRpZXMlMjBkYXJrfGVufDB8MHx8fDE3ODc1MDYzMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-23",
+    "title": "The Door That Would Not Close",
+    "description": "In 1971 Soviet geologists lit a leaking gas crater in Turkmenistans Karakum Desert to burn it off in weeks. More than fifty years later, the Door to Hell is still on fire.",
+    "keywords": ["darvaza","door to hell","turkmenistan","gas crater","karakum","1971","extremophiles"],
+    "slug": "BEnztBdYA",
+    "url": "https://kelso.dotdoing.com/p/BEnztBdYA",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1557951959-e3e30ee937e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8ZGFyayUyMGZpcmUlMjBjcmF0ZXIlMjBkZXNlcnR8ZW58MHwwfHx8MTc4NzQxOTkxMnww&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-22",
+    "title": "The Green Children of Woolpit",
+    "description": "In the summer of 1147, two green-skinned children climbed out of a wolf pit in Suffolk and could not say where they came from. The best-documented fairy encounter in English history.",
+    "keywords": ["woolpit","green children","medieval legend","suffolk","folklore","chronicle","st martins land"],
+    "slug": "CdxcKFBKi",
+    "url": "https://kelso.dotdoing.com/p/CdxcKFBKi",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1581774405449-39a7a8d20990?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8Zm9yZXN0JTIwbWlzdHklMjBncmVlbnxlbnwwfDB8fHwxNzg3MzM3MTI1fA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-21",
+    "title": "The Shrimp That Fires a Star",
+    "description": "A thumbnail crustacean whose claw collapses a cavitation bubble into a flash nearly as hot as the sun, and once drowned out the worlds navies. The snapping shrimp is the oceans loudest animal you have never heard.",
+    "keywords": ["snapping shrimp","cavitation","sonoluminescence","alpheidae","sonar","marine biology"],
+    "slug": "vGS3Nrjh5",
+    "url": "https://kelso.dotdoing.com/p/vGS3Nrjh5",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1604599340287-2042e85a3802?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8ZGVlcCUyMG9jZWFuJTIwZGFyayUyMGJsdWUlMjBhYnlzc3xlbnwwfDB8fHwxNzg3MjQ3MTI5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-20",
+    "title": "The Logistics of Fear",
+    "description": "A haunted house is the most engineered terror you will ever pay to walk through. Behind every scream is a run sheet: fog budgets, dwell times, OSHA exits, and a crew that thinks in throughput.",
+    "keywords": ["haunted house","operations","fog","run-of-show","dwell time","haunt industry","throughput"],
+    "slug": "jEqwhzWUn",
+    "url": "https://kelso.dotdoing.com/p/jEqwhzWUn",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1659633874076-82f57ba8b486?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8ZGFyayUyMGZpcmUlMjBjcmF0ZXIlMjBkZXNlcnR8ZW58MHwwfHx8MTc4NzQxOTkxMnww&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-19",
+    "title": "The Cobra Effect",
+    "description": "When you pay for the symptom, you breed the disease. The colonial bounty that turned a snake problem into a snake factory — and the law of perverse incentives it taught the world.",
+    "keywords": ["cobra effect","perverse incentives","hanoi rat bounty","campbells law","proxy metrics","colonial history"],
+    "slug": "bF5vH3Kjc",
+    "url": "https://kelso.dotdoing.com/p/bF5vH3Kjc",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1638855370496-1ec25682adbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8Y29icmElMjBzbmFrZXxlbnwwfDB8fHwxNzg3MDc2MDc3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-18",
+    "title": "The Address That Drifts",
+    "description": "They sold the house, bought an apartment at sea, and never came home. Inside the strange, real subculture of residential cruise ships.",
+    "keywords": ["residential cruise ship","ms the world","villa vie odyssey","storylines","floating condominium","nomad"],
+    "slug": "v4uN5pQQt",
+    "url": "https://kelso.dotdoing.com/p/v4uN5pQQt",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1676407118683-f0060c12b94f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8Y3J1aXNlJTIwc2hpcCUyMGF0JTIwc2VhJTIwc3Vuc2V0JTIwZGVja3xlbnwwfDB8fHwxNzg2OTg5NzUyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-17",
+    "title": "The Ship That Would Not Float",
+    "description": "On 10 August 1628, Sweden launched its proudest warship and watched it sink in plain sight of the crowd. The Vasa was raised 333 years later almost whole — a museum of a single afternoon catastrophe.",
+    "keywords": ["vasa","shipwreck","1628","stockholm","gustavus adolphus","museum ship","maritime history"],
+    "slug": "UmLEdVPGq",
+    "url": "https://kelso.dotdoing.com/p/UmLEdVPGq",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1675068176923-d2fa965ed360?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8ZGFyayUyMGZpcmUlMjBjcmF0ZXIlMjBkZXNlcnR8ZW58MHwwfHx8MTc4NzQxOTkxMnww&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-16",
+    "title": "The Teeth That Hold the World Together",
+    "description": "A reverse-engineering of the zipper: the interlocking teeth, the failed first inventor, Sundbacks perfecting wedge, and the Japanese firm that makes half of them.",
+    "keywords": ["zipper","fastener","gideon sundback","ykk","reverse-engineering","design history"],
+    "slug": "YnWeLJdRw",
+    "url": "https://kelso.dotdoing.com/p/YnWeLJdRw",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1666446224995-496578fbfd6d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8emlwcGVyJTIwbWFjcm8lMjBjbG9zZS11cCUyMG1ldGFsJTIwdGVldGh8ZW58MHwwfHx8MTc4Njg1NDQyMHww&ixlib=rb-4.1.0&q=80&w=1600"
+  },
+  {
+    "date": "2026-08-15",
+    "title": "The Amoeba That Redrew Tokyo",
+    "description": "In 2010, a brainless yellow slime mold was handed a map of Japan and 36 oat flakes. It grew a railway uncannily like Tokyo's — loop and all — then beat it on efficiency.",
+    "keywords": ["slime mold","physarum","tokyo rail","network optimisation","biology","nakagaki"],
+    "slug": "dxskv4hbP",
+    "url": "https://kelso.dotdoing.com/p/dxskv4hbP",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1518967396639-378a1dcc96d5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8ZnVuZ2FsJTIwbXljZWxpdW0lMjB5ZWxsb3d8ZW58MHwwfHx8MTc4Njg1NTI2Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-14",
+    "title": "The Battle of Karánsebes: When an Army Drowned in Its Own Beer",
+    "description": "In 1788, Habsburg troops spent hours fighting a ghost enemy — then surrendered to the Turks they were originally chasing",
+    "keywords": ["karansebes","habsburg","friendly fire","military history","1788"],
+    "slug": "pdTyccKb9",
+    "url": "https://kelso.dotdoing.com/p/pdTyccKb9",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1764605357305-f7d2d005efbf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8aG9yc2UlMjBiYXR0bGUlMjBmaWVsZHxlbnwwfDB8fHwxNzg2Njc5OTU3fA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-13",
+    "slug": "sZb7uz83N",
+    "url": "https://kelso.dotdoing.com/p/sZb7uz83N",
+    "title": "The Dancing Plague of 1518, Strasbourg",
+    "description": "How a Strasbourg woman's unstoppable dancing fit in the summer of 1518 drew in some 400 people — and why the city's physicians prescribed more dancing as the cure.",
+    "keywords": ["dancing plague","1518","strasbourg","medieval","mass hysteria"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1646681237347-92f8ac4d17ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8bWVkaWV2YWwlMjBjcm93ZCUyMHByb2Nlc3Npb24lMjBjYW5kbGVsaWdodHxlbnwwfDB8fHwxNzg2NTg5Mjc1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-12",
+    "title": "The Boltzmann Brain",
+    "description": "In an infinitely old universe, a random fluctuation is more likely to conjure a single conscious mind than an entire cosmos. The most disturbing thought experiment in physics.",
+    "keywords": ["boltzmann brain","thermodynamics","cosmology","entropy","philosophy of mind"],
+    "slug": "XFD5nWe9f",
+    "url": "https://kelso.dotdoing.com/p/XFD5nWe9f",
+    "ogImage": "https://images.unsplash.com/photo-1761232007928-258c9bd98d66?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8Y29zbWljJTIwdm9pZCUyMGRlZXAlMjBzcGFjZSUyMGRhcmslMjBuZWJ1bGF8ZW58MHwwfHx8MTc4NjQ3NzA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    "status": "ok"
+  },
+  {
+    "date": "2026-08-11",
+    "title": "The Giant Who Never Was",
+    "description": "How a bored Iowa tobacco farmer carved a 10-foot gypsum man, buried it in a New York field, and accidentally created the greatest hoax in American history.",
+    "keywords": ["cardiff giant","hoax","george hull","1869","petrified man","p.t. barnum"],
+    "slug": "MXenQh9L2",
+    "url": "https://kelso.dotdoing.com/p/MXenQh9L2",
+    "ogImage": "https://images.unsplash.com/photo-1711330153931-1971d0a99ed0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8Zm9zc2lsJTIwc3RvbmUlMjBjYXJ2aW5nJTIwYW5jaWVudHxlbnwwfDB8fHwxNzg2Mzg0ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "status": "ok"
+  },
+  {
+    "date": "2026-08-10",
+    "title": "The Phantom Islands",
+    "description": "How imaginary geography shaped real discovery. For centuries, cartographers drew islands that did not exist — and sailors sailed toward them anyway.",
+    "keywords": ["phantom islands","cartography","maritime history","false geography","exploration"],
+    "slug": "WdUWVPUFg",
+    "url": "https://kelso.dotdoing.com/p/WdUWVPUFg",
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1779292167131-b139b7c1b2ba?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8bG9uZG9uJTIwdW5kZXJncm91bmQlMjBtZXRyb3xlbnwwfDB8fHwxNzg1OTUyODc5fDA&ixlib=rb-4.1.0&q=80&w=1200"
+  },
+  {
+    "date": "2026-08-09",
+    "title": "The Loneliest Voice in the Ocean",
+    "description": "A whale has been calling at 52 hertz for forty years. No whale has ever answered. The story of the loneliest sound in the sea.",
+    "keywords": ["52-hertz whale","marine biology","ocean acoustics","loneliness","whale songs"],
+    "slug": "qtVVDm5Jg",
+    "url": "https://kelso.dotdoing.com/p/qtVVDm5Jg",
+    "ogImage": "https://images.unsplash.com/photo-1507166763745-bfe008fbb831?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8Mnx8b2NlYW4lMjB3YXZlcyUyMGRhcmslMjBuaWdodHxlbnwwfDB8fHwxNzg2MjEyMDc2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "status": "ok"
+  },
+  {
+    "date": "2026-08-08",
+    "title": "The Shell That Changed Everything",
+    "description": "How Charles and Ray Eames turned a war material into the chair that democratized good design -- and accidentally invented the modern furniture industry.",
+    "keywords": ["eames","fiberglass","chair","mid-century modern","herman miller","design"],
+    "slug": "JSZWZZoQA",
+    "url": "https://kelso.dotdoing.com/p/JSZWZZoQA",
+    "ogImage": "https://images.unsplash.com/photo-1774927475366-7c4d31588d98?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8ZWFtZXMlMjBjaGFpciUyMG1vZGVybiUyMGludGVyaW9yfGVufDB8MHx8fDE3ODYxMjU2Njl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    "status": "ok"
+  },
+  {
+    "date": "2026-08-07",
+    "slug": "uTMncNqZJ",
+    "url": "https://kelso.dotdoing.com/p/uTMncNqZJ",
+    "title": "The Vinyl Resistance",
+    "description": "How Gen Z turned a dead format into the anti-algorithm manifesto. Vinyl records are not nostalgia -- they are a structural rebellion against the shuffle economy.",
+    "keywords": ["vinyl","gen z","streaming","music","anti-algorithm","record store day"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1603048588665-791ca8aea617?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8dmlueWwlMjByZWNvcmQlMjBwbGF5ZXIlMjB0dXJudGFibGV8ZW58MHwwfHx8MTc4NjAzOTI2N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+  },
+  {
+    "date": "2026-08-06",
+    "slug": "VgURLyv7o",
+    "url": "https://kelso.dotdoing.com/p/VgURLyv7o",
+    "title": "The Hidden Geometry of the London Underground Map",
+    "description": "How a bored draughtsmans obsession with circuit diagrams accidentally invented the visual language of every transit system on Earth.",
+    "keywords": ["london underground","harry beck","transit map","information design","topology"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1515165562839-978bbcf18277?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8bG9uZG9uJTIwdW5kZXJncm91bmQlMjBtZXRyb3xlbnwwfDB8fHwxNzg1OTUyODc5fDA&ixlib=rb-4.1.0&q=80&w=1600"
+  },
+  {
+    "date": "2026-08-05",
+    "slug": "bsJjMCXRD",
+    "url": "https://kelso.dotdoing.com/p/bsJjMCXRD",
+    "title": "The Corpse Who Won a War",
+    "description": "How British intelligence planted a dead tramp with fake invasion plans off the coast of Spain -- and rewrote the map of World War II.",
+    "keywords": ["operation mincemeat","wwii","deception","sicily","espionage"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1507166763745-bfe008fbb831?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8M3x8b2NlYW4lMjBkYXJrJTIwc3Rvcm15JTIwc2VhfGVufDB8MHx8fDE3ODU5MzQ1Njl8MA&ixlib=rb-4.1.0&q=80&w=1600"
+  },
+  {
+    "date": "2026-08-04",
+    "slug": "s8HnLtN3K",
+    "url": "https://kelso.dotdoing.com/p/s8HnLtN3K",
+    "title": "The Blue That Built an Empire",
+    "description": "How Egyptian Blue -- the world's first synthetic pigment, invented 2500 BC -- became Rome's most prized colour and was lost for 1,400 years before modern science rediscovered its secrets.",
+    "keywords": ["egyptian blue","pigments","pompeii","chemistry","ancient rome"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1592488881715-4bfcb5b7a911?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8cG9tcGVpaSUyMHdhbGwlMjBwYWludGluZyUyMGFuY2llbnR8ZW58MHwwfHx8MTc4NTkzNDAxOHww&ixlib=rb-4.1.0&q=80&w=1600"
+  },
+  {
+    "date": "2026-08-03",
+    "slug": "GwBqqxtGJ",
+    "url": "https://kelso.dotdoing.com/p/GwBqqxtGJ",
+    "title": "The Moans of Jupiter",
+    "description": "Voyager 1's plasma wave antenna turned Jupiter's magnetosphere into sound -- and what it captured sounds like whales singing in the dark.",
+    "keywords": ["jupiter","voyager","magnetosphere","plasma waves"],
+    "status": "ok",
+    "ogImage": "https://images.unsplash.com/photo-1654263391025-4c4809a37f5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE4MDg0fDB8MXxzZWFyY2h8MXx8bG9uZG9uJTIwdW5kZXJncm91bmQlMjBtZXRyb3xlbnwwfDB8fHwxNzg1OTMzMTkyfA&ixlib=rb-4.1.0&q=80&w=1920"
+  }
+];
+    const FALLBACK_IMAGES = {
+      'GwBqqxtGJ': 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=800',
+      's8HnLtN3K': 'https://images.unsplash.com/photo-1580052614034-c55d20bfee3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixlib=rb-4.1.0&q=80&w=800'
+    };
+    function unsplashSrcSet(url, widths){
+      if(!url || !url.includes('unsplash.com')) return '';
+      return widths.map(w => url.replace(/w=\d+/, 'w='+w) + ' '+w+'w').join(', ');
+    }
+    if (ENTRIES.length === 0) {
+      document.getElementById('empty-state').classList.remove('hidden');
+      document.getElementById('day-count').textContent = '1';
+      document.getElementById('caption-no').textContent = '01';
+      const c2=document.getElementById('caption-no-2'); if(c2) c2.textContent='01';
+      document.getElementById('footer-no').textContent = '001';
+      document.getElementById('wordmark').setAttribute('data-edition','01');
+      const pn=document.getElementById('plate-num'); if(pn) pn.textContent='01';
+    } else {
+      const dayNum = ENTRIES.length;
+      document.getElementById('day-count').textContent = dayNum;
+      const padded2 = String(dayNum).padStart(2,'0');
+      const padded3 = String(dayNum).padStart(3,'0');
+      document.getElementById('caption-no').textContent = padded2;
+      const c2=document.getElementById('caption-no-2'); if(c2) c2.textContent=padded2;
+      document.getElementById('footer-no').textContent = padded3;
+      document.getElementById('wordmark').setAttribute('data-edition', padded2);
+      const pn=document.getElementById('plate-num'); if(pn) pn.textContent=padded2;
+
+      const now = new Date();
+      const nowAEST = new Date(now.getTime() + (600 + now.getTimezoneOffset()) * 60000);
+      const today = nowAEST.getFullYear() + '-' + String(nowAEST.getMonth() + 1).padStart(2, '0') + '-' + String(nowAEST.getDate()).padStart(2, '0');
+      const byDate = [...ENTRIES].sort((a, b) => b.date.localeCompare(a.date));
+      const featured = byDate.find(e => e.date === today) || byDate[0];
+      const pastEntries = byDate.filter(e => e !== featured);
+
+      const mDate = new Date(featured.date + 'T00:00:00');
+      document.getElementById('masthead-date').textContent = mDate.toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase();
+
+      document.getElementById('featured-link').href = featured.url;
+      const featImg = featured.ogImage || FALLBACK_IMAGES[featured.slug] || '';
+      const featImgEl = document.getElementById('featured-img');
+      if (featImg) {
+        featImgEl.src = featImg;
+        const ss = unsplashSrcSet(featImg, [800,1200,1600]);
+        if(ss){ featImgEl.srcset = ss; featImgEl.sizes = '(max-width: 960px) 100vw, 58vw'; }
+        featImgEl.alt = featured.title;
+      } else { featImgEl.style.display='none'; }
+
+      const featDate = new Date(featured.date + 'T00:00:00');
+      document.getElementById('featured-date').textContent = featDate.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+      const tWords = featured.title.split(' ');
+      const titleHtml = tWords.length > 2 ? tWords.slice(0,-1).join(' ') + ' <em>' + tWords.slice(-1).join(' ') + '</em>' : featured.title;
+      document.getElementById('featured-title').innerHTML = titleHtml;
+      document.getElementById('featured-desc').textContent = featured.description;
+      const featTagsEl = document.getElementById('featured-tags');
+      featTagsEl.innerHTML = (featured.keywords || []).slice(0,5).map(k => `<span>${k}</span>`).join('');
+
+      const pastContainer = document.getElementById('past-entries');
+      const pastCountEl = document.getElementById('past-count');
+      if (pastEntries.length === 0) {
+        document.getElementById('empty-state').classList.remove('hidden');
+        pastCountEl.textContent = '';
+      } else {
+        pastCountEl.textContent = `${pastEntries.length} earlier transmission${pastEntries.length===1?'':'s'} in the log`;
+        pastEntries.forEach((entry, i) => {
+          const d = new Date(entry.date + 'T00:00:00');
+          const dayName = d.toLocaleDateString('en-AU', { weekday:'short' }).toUpperCase();
+          const formatted = d.toLocaleDateString('en-AU', { day:'2-digit', month:'short', year:'numeric' }).toUpperCase();
+          const thumb = entry.ogImage || FALLBACK_IMAGES[entry.slug] || '';
+          const thumbSet = unsplashSrcSet(thumb, [344,688, 860]);
+          const idx = String(pastEntries.length - i).padStart(2,'0');
+          const card = document.createElement('a');
+          card.href = entry.url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+          card.className = 'entry-row';
+          card.setAttribute('aria-label', entry.title);
+          card.innerHTML = `
+            <div class="num"><small>LOG</small>${idx}</div>
+            <div class="thumb" aria-hidden="true"><div>${thumb?`<img src="${thumb}" srcset="${thumbSet}" sizes="(max-width: 560px) 100vw, (max-width: 960px) 118px, 172px" alt="" loading="lazy" decoding="async">`:``}</div></div>
+            <div class="main">
+              <div class="meta"><b>${dayName}</b> <span style="width:10px; height:2px; background:var(--ink); display:inline-block"></span> <span>${formatted}</span></div>
+              <h3>${entry.title}</h3>
+              <p>${entry.description}</p>
+            </div>
+            <div class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></div>
+          `;
+          pastContainer.appendChild(card);
+        });
+      }
+    }
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function validateEmail(e){ return EMAIL_RE.test(e); }
+    function setLoading(prefix, loading){
+      const form = document.getElementById(prefix + '-signup-form');
+      if(!form) return;
+      const btn = form.querySelector('button[type="submit"]');
+      const input = form.querySelector('input[type="email"]');
+      if(loading){ btn.disabled=true; btn.textContent='Kelso is sniffing…'; if(input) input.disabled=true; }
+      else { btn.disabled=false; btn.textContent='Subscribe for free'; if(input) input.disabled=false; }
+    }
+    function showError(prefix, msg){
+      const el = document.getElementById(prefix + '-error');
+      const input = document.getElementById(prefix + '-email');
+      if(el){ el.textContent=msg; el.classList.add('show'); el.classList.remove('hidden'); }
+      if(input){ input.classList.add('input-error'); input.setAttribute('aria-invalid','true'); }
+    }
+    function hideError(prefix){
+      const el = document.getElementById(prefix + '-error');
+      const input = document.getElementById(prefix + '-email');
+      if(el){ el.classList.remove('show'); el.classList.add('hidden'); el.textContent=''; }
+      if(input){ input.classList.remove('input-error'); input.setAttribute('aria-invalid','false'); }
+    }
+    function showSuccess(prefix){
+      const f=document.getElementById(prefix + '-signup-form'); if(f) f.classList.add('hidden');
+      document.getElementById(prefix + '-signup-success')?.classList.remove('hidden');
+    }
+    function showDuplicate(prefix){
+      const f=document.getElementById(prefix + '-signup-form'); if(f) f.classList.add('hidden');
+      document.getElementById(prefix + '-signup-duplicate')?.classList.remove('hidden');
+    }
+    function showRemoteError(prefix, msgId){
+      const f=document.getElementById(prefix + '-signup-form'); if(f) f.classList.add('hidden');
+      const c=document.getElementById(prefix + '-signup-error');
+      const m=document.getElementById(prefix + '-signup-error-msg');
+      if(m && msgId) m.textContent=msgId;
+      if(c) c.classList.remove('hidden');
+    }
+    function resetSignupForm(prefix){
+      document.getElementById(prefix + '-signup-form')?.classList.remove('hidden');
+      document.getElementById(prefix + '-signup-success')?.classList.add('hidden');
+      document.getElementById(prefix + '-signup-duplicate')?.classList.add('hidden');
+      document.getElementById(prefix + '-signup-error')?.classList.add('hidden');
+      hideError(prefix);
+      const input=document.getElementById(prefix + '-email');
+      if(input){ input.value=''; input.focus(); }
+    }
+    async function handleSignup(event, prefix){
+      event.preventDefault();
+      hideError(prefix);
+      const input=document.getElementById(prefix + '-email');
+      const email=input.value.trim().toLowerCase();
+      if(!validateEmail(email)){ showError(prefix,'Enter an email like kelso@good.boy — check for typos.'); return false; }
+      setLoading(prefix,true);
+      try{
+        const res=await fetch('/subscribe',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email})});
+        setLoading(prefix,false);
+        if(res.ok || res.status===200 || res.status===201){ showSuccess(prefix); }
+        else if(res.status===409){ showDuplicate(prefix); }
+        else if(res.status===422){ showError(prefix,"That email doesn't look right — check the format and try again."); }
+        else if(res.status===429){ showRemoteError(prefix,"Kelso's bowl is full — wait a moment, then try again."); }
+        else { showRemoteError(prefix,"We couldn't save your email. Check your connection and try again."); }
+      }catch(err){ setLoading(prefix,false); showRemoteError(prefix,"We couldn't save your email. Check your connection and try again."); }
+      return false;
+    }
+    document.querySelectorAll('input[type="email"]').forEach(input=>{
+      input.addEventListener('input', function(){
+        this.classList.remove('input-error');
+        this.setAttribute('aria-invalid','false');
+        const form=this.closest('form');
+        if(form){
+          const err=form.parentElement?.querySelector('.field-error') || document.getElementById(this.id.replace('-email','-error'));
+          if(err){ err.classList.remove('show'); err.classList.add('hidden'); }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
